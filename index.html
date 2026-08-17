@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Evan L. — GIS Analyst</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --canvas: #1b241f;
+    --canvas-raised: #212c26;
+    --ink: #e9ede8;
+    --ink-dim: #9fb0a3;
+    --line: rgba(233, 237, 232, 0.12);
+
+    /* Land cover classification palette — pulled straight from the
+       Philadelphia land cover legend (classes 1–7) and reused here
+       as the site's functional color-coding system. */
+    --canopy: #6fa06a;    /* class 1 — tree canopy   → About    */
+    --grass: #a9b96e;     /* class 2 — grass/shrub   → texture  */
+    --soil: #b08a63;      /* class 3 — bare soil     → accents  */
+    --water: #5089ab;     /* class 4 — water         → Projects */
+    --building: #8891a0;  /* class 5 — building      → Skills   */
+    --road: #d98c4a;      /* class 6/7 — road/paved  → Contact  */
+
+    --radius: 3px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+  }
+
+  body {
+    background: var(--canvas);
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  /* Faint contour-line texture across the whole canvas */
+  .contours {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    opacity: 0.05;
+    pointer-events: none;
+  }
+
+  a { color: inherit; }
+  a:focus-visible, button:focus-visible {
+    outline: 2px solid var(--water);
+    outline-offset: 3px;
+  }
+
+  .wrap {
+    position: relative;
+    z-index: 1;
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+
+  /* ---------- Legend key (fixed nav) ---------- */
+  .legend {
+    position: fixed;
+    top: 28px;
+    right: 28px;
+    z-index: 10;
+    background: var(--canvas-raised);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 12px 14px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.02em;
+  }
+  .legend-title {
+    color: var(--ink-dim);
+    text-transform: uppercase;
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    margin-bottom: 8px;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 0;
+    text-decoration: none;
+    color: var(--ink);
+  }
+  .legend-item:hover { color: var(--grass); }
+  .swatch {
+    width: 10px;
+    height: 10px;
+    flex-shrink: 0;
+    border-radius: 2px;
+  }
+
+  @media (max-width: 640px) {
+    .legend {
+      position: static;
+      margin: 20px 28px 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px 16px;
+    }
+    .legend-title { width: 100%; }
+  }
+
+  /* ---------- Hero ---------- */
+  header.hero {
+    padding: 120px 0 80px;
+  }
+  .coord-tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: var(--water);
+    letter-spacing: 0.04em;
+    margin-bottom: 18px;
+  }
+  h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: clamp(2.6rem, 6vw, 4.2rem);
+    line-height: 1.02;
+    letter-spacing: -0.01em;
+  }
+  .role {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(1.1rem, 2.4vw, 1.5rem);
+    color: var(--canopy);
+    margin-top: 10px;
+    font-weight: 500;
+  }
+  .hero-desc {
+    max-width: 52ch;
+    color: var(--ink-dim);
+    margin-top: 22px;
+    font-size: 1.02rem;
+  }
+  .hero-links {
+    display: flex;
+    gap: 14px;
+    margin-top: 34px;
+    flex-wrap: wrap;
+  }
+  .btn {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12.5px;
+    text-decoration: none;
+    padding: 11px 18px;
+    border-radius: var(--radius);
+    border: 1px solid var(--line);
+    color: var(--ink);
+    transition: border-color 0.15s ease, transform 0.15s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .btn:hover { border-color: var(--water); transform: translateY(-1px); }
+  .btn.primary { background: var(--canvas-raised); border-color: var(--canopy); }
+
+  /* ---------- Sections ---------- */
+  section {
+    padding: 64px 0;
+    border-top: 1px solid var(--line);
+  }
+  .section-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 26px;
+  }
+  .section-label .swatch { width: 8px; height: 8px; border-radius: 50%; }
+  .section-label .num { color: var(--ink-dim); }
+
+  #about p { max-width: 62ch; color: var(--ink-dim); }
+  #about p + p { margin-top: 14px; }
+  #about strong { color: var(--ink); font-weight: 500; }
+
+  /* ---------- Project cards ---------- */
+  .project-card {
+    background: var(--canvas-raised);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 26px 28px;
+    margin-bottom: 16px;
+  }
+  .project-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .project-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+  .status {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 4px 9px;
+    border-radius: 20px;
+    white-space: nowrap;
+  }
+  .status.progress { background: rgba(217, 140, 74, 0.15); color: var(--road); }
+  .project-desc { color: var(--ink-dim); margin-top: 12px; max-width: 60ch; font-size: 0.96rem; }
+  .project-tags {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 16px;
+  }
+  .tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10.5px;
+    color: var(--ink-dim);
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    padding: 3px 10px;
+  }
+  .placeholder-note {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: var(--ink-dim);
+    border-left: 2px solid var(--road);
+    padding: 4px 0 4px 14px;
+    margin-top: 8px;
+  }
+
+  /* ---------- Skills ---------- */
+  .skills-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .skill-tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12.5px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 8px 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .skill-tag .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+  }
+
+  /* ---------- Footer / contact ---------- */
+  footer {
+    padding: 64px 0 80px;
+  }
+  .footer-links {
+    display: flex;
+    gap: 22px;
+    flex-wrap: wrap;
+    margin-top: 18px;
+  }
+  .footer-links a {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    text-decoration: none;
+    color: var(--ink-dim);
+    border-bottom: 1px solid transparent;
+  }
+  .footer-links a:hover { color: var(--ink); border-color: var(--road); }
+  .footer-meta {
+    margin-top: 40px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-dim);
+    opacity: 0.6;
+  }
+</style>
+</head>
+<body>
+
+<svg class="contours" viewBox="0 0 1000 1400" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M-50,120 C150,60 300,180 500,110 C700,40 850,140 1050,90" stroke="#a9b96e" stroke-width="1.2" fill="none"/>
+  <path d="M-50,200 C150,140 300,260 500,190 C700,120 850,220 1050,170" stroke="#a9b96e" stroke-width="1.2" fill="none"/>
+  <path d="M-50,480 C180,420 320,540 520,470 C720,400 860,500 1050,450" stroke="#5089ab" stroke-width="1.2" fill="none"/>
+  <path d="M-50,560 C180,500 320,620 520,550 C720,480 860,580 1050,530" stroke="#5089ab" stroke-width="1.2" fill="none"/>
+  <path d="M-50,900 C160,840 340,960 520,890 C720,820 880,920 1050,870" stroke="#b08a63" stroke-width="1.2" fill="none"/>
+  <path d="M-50,980 C160,920 340,1040 520,970 C720,900 880,1000 1050,950" stroke="#b08a63" stroke-width="1.2" fill="none"/>
+  <path d="M-50,1250 C170,1190 330,1310 520,1240 C710,1170 870,1270 1050,1220" stroke="#6fa06a" stroke-width="1.2" fill="none"/>
+</svg>
+
+<nav class="legend" aria-label="Section navigation">
+  <div class="legend-title">Legend</div>
+  <a class="legend-item" href="#about"><span class="swatch" style="background:var(--canopy)"></span>About</a>
+  <a class="legend-item" href="#projects"><span class="swatch" style="background:var(--water)"></span>Projects</a>
+  <a class="legend-item" href="#skills"><span class="swatch" style="background:var(--building)"></span>Skills</a>
+  <a class="legend-item" href="#contact"><span class="swatch" style="background:var(--road)"></span>Contact</a>
+</nav>
+
+<div class="wrap">
+
+  <header class="hero">
+    <div class="coord-tag">39.9526° N, 75.1652° W — PHILADELPHIA, PA</div>
+    <h1>Evan L.</h1>
+    <div class="role">GIS Analyst — Environmental &amp; Climate Spatial Analysis</div>
+    <p class="hero-desc">
+      Six-plus years turning spatial data into decisions, now focused on
+      environmental justice, climate risk, and sustainability-driven GIS work.
+      Building a public body of work using open data and open-source tools.
+    </p>
+    <div class="hero-links">
+      <a class="btn primary" href="#projects">View Projects</a>
+      <a class="btn" href="https://www.upwork.com/freelancers/~013967dcb0a46b571a" target="_blank" rel="noopener">Upwork ↗</a>
+      <a class="btn" href="https://github.com/evanklarsen" target="_blank" rel="noopener">GitHub ↗</a>
+    </div>
+  </header>
+
+  <section id="about">
+    <div class="section-label"><span class="swatch" style="background:var(--canopy)"></span><span class="num">01</span> About</div>
+    <p>
+      I'm a GIS and data professional with a background spanning geospatial analysis,
+      workflow automation, and data pipeline development across QGIS, ArcGIS Pro/Online,
+      Python (GeoPandas, ArcPy), and PostGIS. Most recently I worked on
+      <strong>Lyft's Mapping Product team</strong>, building compliance alerting systems,
+      predictive models, and automated geospatial workflows across 130+ international markets.
+    </p>
+    <p>
+      My academic roots are in environmental and urban geography — my graduate research
+      applied spatial statistics (Empirical Bayesian Kriging, network analysis) and remote
+      sensing to study walkability, land use, and housing quality. That combination of
+      production GIS experience and environmental-analysis background is what I bring to
+      every project below.
+    </p>
+  </section>
+
+  <section id="projects">
+    <div class="section-label"><span class="swatch" style="background:var(--water)"></span><span class="num">02</span> Projects</div>
+
+    <div class="project-card">
+      <div class="project-top">
+        <div class="project-title">Philadelphia Environmental Justice &amp; Climate Risk Index</div>
+        <div class="status progress">In Progress</div>
+      </div>
+      <p class="project-desc">
+        A census-tract-level composite index for Philadelphia combining EPA environmental
+        burden data, CDC health outcomes, Census social vulnerability indicators, and
+        land-cover-derived tree canopy exposure — modeled on EPA's EJScreen methodology,
+        built end-to-end from public data.
+      </p>
+      <div class="project-tags">
+        <span class="tag">QGIS</span>
+        <span class="tag">Python</span>
+        <span class="tag">GeoPandas</span>
+        <span class="tag">ArcGIS StoryMaps</span>
+      </div>
+      <div class="placeholder-note">Repo and write-up link coming soon</div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-top">
+        <div class="project-title">More projects in development</div>
+        <div class="status progress">Planned</div>
+      </div>
+      <p class="project-desc">
+        Solar site suitability analysis, LiDAR-based flood exposure mapping, and a
+        Google Earth Engine remote sensing piece are next in the pipeline.
+      </p>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="section-label"><span class="swatch" style="background:var(--building)"></span><span class="num">03</span> Skills &amp; Tools</div>
+    <div class="skills-grid">
+      <span class="skill-tag"><span class="dot" style="background:var(--canopy)"></span>QGIS</span>
+      <span class="skill-tag"><span class="dot" style="background:var(--canopy)"></span>ArcGIS Pro / Online</span>
+      <span class="skill-tag"><span class="dot" style="background:var(--water)"></span>Python (GeoPandas, ArcPy)</span>
+      <span class="skill-tag"><span class="dot" style="background:var(--water)"></span>PostGIS / SQL</span>
+      <span class="skill-tag"><span class="dot" style="background:var(--soil)"></span>Google Earth Engine</span>
+      <span class="skill-tag"><span class="dot" style="background:var(--building)"></span>Spatial Statistics</span>
+      <span class="skill-tag"><span class="dot" style="background:var(--road)"></span>Remote Sensing</span>
+      <span class="skill-tag"><span class="dot" style="background:var(--grass)"></span>Workflow Automation</span>
+    </div>
+  </section>
+
+  <footer id="contact">
+    <div class="section-label"><span class="swatch" style="background:var(--road)"></span><span class="num">04</span> Contact</div>
+    <p style="color: var(--ink-dim); max-width: 50ch;">
+      Open to full-time GIS roles and freelance environmental/spatial data projects.
+    </p>
+    <div class="footer-links">
+      <a href="https://www.upwork.com/freelancers/~013967dcb0a46b571a" target="_blank" rel="noopener">Upwork ↗</a>
+      <a href="https://github.com/evanklarsen" target="_blank" rel="noopener">GitHub ↗</a>
+      <a href="mailto:you@example.com">Email ↗</a>
+    </div>
+    <div class="footer-meta">evanklarsen.github.io — last surveyed 2026</div>
+  </footer>
+
+</div>
+
+</body>
+</html>

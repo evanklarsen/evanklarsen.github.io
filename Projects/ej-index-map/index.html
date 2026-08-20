@@ -156,15 +156,6 @@
         map.addLayer(layer_OSMStandard_0);
 function pop_EJClimateRiskIndex_1(feature, layer) {
             layer.on({
-                mouseout: function(e) {
-                    if (typeof layer.closePopup == 'function') {
-                        layer.closePopup();
-                    } else {
-                        layer.eachLayer(function(feature){
-                            feature.closePopup()
-                        });
-                    }
-                },
                 mouseover: highlightFeature,
             });
             var popupContent = '<table style="width: 100%; border-collapse: collapse;">\
@@ -205,7 +196,7 @@ function pop_EJClimateRiskIndex_1(feature, layer) {
                 lineJoin: 'miter',
                 weight: 1.0, 
                 fill: true,
-                fillOpacity: 1,
+                fillOpacity: 0.6,
                 fillColor: 'rgba(255,255,178,1.0)',
                 interactive: true,
             }
@@ -220,7 +211,7 @@ function pop_EJClimateRiskIndex_1(feature, layer) {
                 lineJoin: 'miter',
                 weight: 1.0, 
                 fill: true,
-                fillOpacity: 1,
+                fillOpacity: 0.6,
                 fillColor: 'rgba(254,204,92,1.0)',
                 interactive: true,
             }
@@ -235,7 +226,7 @@ function pop_EJClimateRiskIndex_1(feature, layer) {
                 lineJoin: 'miter',
                 weight: 1.0, 
                 fill: true,
-                fillOpacity: 1,
+                fillOpacity: 0.6,
                 fillColor: 'rgba(253,141,60,1.0)',
                 interactive: true,
             }
@@ -250,7 +241,7 @@ function pop_EJClimateRiskIndex_1(feature, layer) {
                 lineJoin: 'miter',
                 weight: 1.0, 
                 fill: true,
-                fillOpacity: 1,
+                fillOpacity: 0.6,
                 fillColor: 'rgba(240,59,32,1.0)',
                 interactive: true,
             }
@@ -265,7 +256,7 @@ function pop_EJClimateRiskIndex_1(feature, layer) {
                 lineJoin: 'miter',
                 weight: 1.0, 
                 fill: true,
-                fillOpacity: 1,
+                fillOpacity: 0.6,
                 fillColor: 'rgba(189,0,38,1.0)',
                 interactive: true,
             }
@@ -287,15 +278,6 @@ function pop_EJClimateRiskIndex_1(feature, layer) {
         map.addLayer(layer_EJClimateRiskIndex_1);
         function pop_EnvironmentalBurdenIndex_2(feature, layer) {
             layer.on({
-                mouseout: function(e) {
-                    if (typeof layer.closePopup == 'function') {
-                        layer.closePopup();
-                    } else {
-                        layer.eachLayer(function(feature){
-                            feature.closePopup()
-                        });
-                    }
-                },
                 mouseover: highlightFeature,
             });
             var popupContent = '<table style="width: 100%; border-collapse: collapse;">\
@@ -336,7 +318,7 @@ function pop_EJClimateRiskIndex_1(feature, layer) {
                 lineJoin: 'miter',
                 weight: 1.0, 
                 fill: true,
-                fillOpacity: 1,
+                fillOpacity: 0.6,
                 fillColor: 'rgba(255,255,178,1.0)',
                 interactive: true,
             }
@@ -351,7 +333,7 @@ function pop_EJClimateRiskIndex_1(feature, layer) {
                 lineJoin: 'miter',
                 weight: 1.0, 
                 fill: true,
-                fillOpacity: 1,
+                fillOpacity: 0.6,
                 fillColor: 'rgba(254,204,92,1.0)',
                 interactive: true,
             }
@@ -366,7 +348,7 @@ function pop_EJClimateRiskIndex_1(feature, layer) {
                 lineJoin: 'miter',
                 weight: 1.0, 
                 fill: true,
-                fillOpacity: 1,
+                fillOpacity: 0.6,
                 fillColor: 'rgba(253,141,60,1.0)',
                 interactive: true,
             }
@@ -381,7 +363,7 @@ function pop_EJClimateRiskIndex_1(feature, layer) {
                 lineJoin: 'miter',
                 weight: 1.0, 
                 fill: true,
-                fillOpacity: 1,
+                fillOpacity: 0.6,
                 fillColor: 'rgba(240,59,32,1.0)',
                 interactive: true,
             }
@@ -396,7 +378,7 @@ function pop_EJClimateRiskIndex_1(feature, layer) {
                 lineJoin: 'miter',
                 weight: 1.0, 
                 fill: true,
-                fillOpacity: 1,
+                fillOpacity: 0.6,
                 fillColor: 'rgba(189,0,38,1.0)',
                 interactive: true,
             }
@@ -418,15 +400,6 @@ function pop_EJClimateRiskIndex_1(feature, layer) {
         // map.addLayer(layer_EnvironmentalBurdenIndex_2);
         function pop_Health_VulnerabilityIndex_3(feature, layer) {
             layer.on({
-                mouseout: function(e) {
-                    if (typeof layer.closePopup == 'function') {
-                        layer.closePopup();
-                    } else {
-                        layer.eachLayer(function(feature){
-                            feature.closePopup()
-                        });
-                    }
-                },
                 mouseover: highlightFeature,
             });
             var popupContent = '<table style="width: 100%; border-collapse: collapse;">\
@@ -467,7 +440,7 @@ function pop_EJClimateRiskIndex_1(feature, layer) {
                 lineJoin: 'miter',
                 weight: 1.0, 
                 fill: true,
-                fillOpacity: 1,
+                fillOpacity: 0.6,
                 fillColor: 'rgba(255,255,178,1.0)',
                 interactive: true,
             }
@@ -482,7 +455,7 @@ function pop_EJClimateRiskIndex_1(feature, layer) {
                 lineJoin: 'miter',
                 weight: 1.0, 
                 fill: true,
-                fillOpacity: 1,
+                fillOpacity: 0.6,
                 fillColor: 'rgba(254,204,92,1.0)',
                 interactive: true,
             }
@@ -497,7 +470,7 @@ function pop_EJClimateRiskIndex_1(feature, layer) {
                 lineJoin: 'miter',
                 weight: 1.0, 
                 fill: true,
-                fillOpacity: 1,
+                fillOpacity: 0.6,
                 fillColor: 'rgba(253,141,60,1.0)',
                 interactive: true,
             }
@@ -512,7 +485,7 @@ function pop_EJClimateRiskIndex_1(feature, layer) {
                 lineJoin: 'miter',
                 weight: 1.0, 
                 fill: true,
-                fillOpacity: 1,
+                fillOpacity: 0.6,
                 fillColor: 'rgba(240,59,32,1.0)',
                 interactive: true,
             }
@@ -527,7 +500,7 @@ function pop_EJClimateRiskIndex_1(feature, layer) {
                 lineJoin: 'miter',
                 weight: 1.0, 
                 fill: true,
-                fillOpacity: 1,
+                fillOpacity: 0.6,
                 fillColor: 'rgba(189,0,38,1.0)',
                 interactive: true,
             }
@@ -549,15 +522,6 @@ function pop_EJClimateRiskIndex_1(feature, layer) {
         // map.addLayer(layer_Health_VulnerabilityIndex_3);
         function pop_SocialVulnerabilityIndex_4(feature, layer) {
             layer.on({
-                mouseout: function(e) {
-                    if (typeof layer.closePopup == 'function') {
-                        layer.closePopup();
-                    } else {
-                        layer.eachLayer(function(feature){
-                            feature.closePopup()
-                        });
-                    }
-                },
                 mouseover: highlightFeature,
             });
             var popupContent = '<table style="width: 100%; border-collapse: collapse;">\
@@ -598,7 +562,7 @@ function pop_EJClimateRiskIndex_1(feature, layer) {
                 lineJoin: 'miter',
                 weight: 1.0, 
                 fill: true,
-                fillOpacity: 1,
+                fillOpacity: 0.6,
                 fillColor: 'rgba(255,255,178,1.0)',
                 interactive: true,
             }
@@ -613,7 +577,7 @@ function pop_EJClimateRiskIndex_1(feature, layer) {
                 lineJoin: 'miter',
                 weight: 1.0, 
                 fill: true,
-                fillOpacity: 1,
+                fillOpacity: 0.6,
                 fillColor: 'rgba(254,204,92,1.0)',
                 interactive: true,
             }
@@ -628,7 +592,7 @@ function pop_EJClimateRiskIndex_1(feature, layer) {
                 lineJoin: 'miter',
                 weight: 1.0, 
                 fill: true,
-                fillOpacity: 1,
+                fillOpacity: 0.6,
                 fillColor: 'rgba(253,141,60,1.0)',
                 interactive: true,
             }
@@ -643,7 +607,7 @@ function pop_EJClimateRiskIndex_1(feature, layer) {
                 lineJoin: 'miter',
                 weight: 1.0, 
                 fill: true,
-                fillOpacity: 1,
+                fillOpacity: 0.6,
                 fillColor: 'rgba(240,59,32,1.0)',
                 interactive: true,
             }
@@ -658,7 +622,7 @@ function pop_EJClimateRiskIndex_1(feature, layer) {
                 lineJoin: 'miter',
                 weight: 1.0, 
                 fill: true,
-                fillOpacity: 1,
+                fillOpacity: 0.6,
                 fillColor: 'rgba(189,0,38,1.0)',
                 interactive: true,
             }
@@ -680,15 +644,6 @@ function pop_EJClimateRiskIndex_1(feature, layer) {
         // map.addLayer(layer_SocialVulnerabilityIndex_4);
         function pop_ClimateExposureIndex_5(feature, layer) {
             layer.on({
-                mouseout: function(e) {
-                    if (typeof layer.closePopup == 'function') {
-                        layer.closePopup();
-                    } else {
-                        layer.eachLayer(function(feature){
-                            feature.closePopup()
-                        });
-                    }
-                },
                 mouseover: highlightFeature,
             });
             var popupContent = '<table style="width: 100%; border-collapse: collapse;">\
@@ -729,7 +684,7 @@ function pop_EJClimateRiskIndex_1(feature, layer) {
                 lineJoin: 'miter',
                 weight: 1.0, 
                 fill: true,
-                fillOpacity: 1,
+                fillOpacity: 0.6,
                 fillColor: 'rgba(255,255,178,1.0)',
                 interactive: true,
             }
@@ -744,7 +699,7 @@ function pop_EJClimateRiskIndex_1(feature, layer) {
                 lineJoin: 'miter',
                 weight: 1.0, 
                 fill: true,
-                fillOpacity: 1,
+                fillOpacity: 0.6,
                 fillColor: 'rgba(254,204,92,1.0)',
                 interactive: true,
             }
@@ -759,7 +714,7 @@ function pop_EJClimateRiskIndex_1(feature, layer) {
                 lineJoin: 'miter',
                 weight: 1.0, 
                 fill: true,
-                fillOpacity: 1,
+                fillOpacity: 0.6,
                 fillColor: 'rgba(253,141,60,1.0)',
                 interactive: true,
             }
@@ -774,7 +729,7 @@ function pop_EJClimateRiskIndex_1(feature, layer) {
                 lineJoin: 'miter',
                 weight: 1.0, 
                 fill: true,
-                fillOpacity: 1,
+                fillOpacity: 0.6,
                 fillColor: 'rgba(240,59,32,1.0)',
                 interactive: true,
             }
@@ -789,7 +744,7 @@ function pop_EJClimateRiskIndex_1(feature, layer) {
                 lineJoin: 'miter',
                 weight: 1.0, 
                 fill: true,
-                fillOpacity: 1,
+                fillOpacity: 0.6,
                 fillColor: 'rgba(189,0,38,1.0)',
                 interactive: true,
             }

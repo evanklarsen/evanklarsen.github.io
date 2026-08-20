@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Philadelphia EJ & Climate Risk Index — Evan L.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --canvas: #1b241f;
+    --canvas-raised: #212c26;
+    --ink: #e9ede8;
+    --ink-dim: #9fb0a3;
+    --line: rgba(233, 237, 232, 0.12);
+    --canopy: #6fa06a;
+    --grass: #a9b96e;
+    --soil: #b08a63;
+    --water: #5089ab;
+    --building: #8891a0;
+    --road: #d98c4a;
+    --radius: 3px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+  }
+  body {
+    background: var(--canvas);
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.65;
+  }
+  a { color: var(--water); }
+  .wrap { max-width: 840px; margin: 0 auto; padding: 0 28px; }
+
+  header.hero { padding: 90px 0 60px; border-bottom: 1px solid var(--line); }
+  .back-link {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: var(--ink-dim);
+    text-decoration: none;
+    display: inline-block;
+    margin-bottom: 28px;
+  }
+  .back-link:hover { color: var(--ink); }
+  h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: clamp(2rem, 5vw, 3rem);
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+  }
+  .subtitle {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.1rem;
+    color: var(--canopy);
+    margin-top: 10px;
+    font-weight: 500;
+  }
+  .tools-used {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 22px;
+  }
+  .tools-used span {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    padding: 4px 12px;
+    color: var(--ink-dim);
+  }
+
+  section { padding: 56px 0; border-bottom: 1px solid var(--line); }
+  section:last-of-type { border-bottom: none; }
+  .section-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 22px;
+  }
+  .section-label .swatch { width: 8px; height: 8px; border-radius: 50%; }
+
+  p { color: var(--ink-dim); max-width: 68ch; }
+  p + p { margin-top: 14px; }
+  h2.section-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+
+  .map-embed-wrap {
+    margin-top: 24px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .map-embed-wrap iframe {
+    width: 100%;
+    height: 600px;
+    border: none;
+    display: block;
+  }
+  .map-caption {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-dim);
+    margin-top: 10px;
+  }
+
+  .index-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    margin-top: 24px;
+  }
+  @media (max-width: 600px) { .index-grid { grid-template-columns: 1fr; } }
+  .index-card {
+    background: var(--canvas-raised);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 20px 22px;
+  }
+  .index-card-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+    font-size: 1.05rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  .index-card-title .swatch { width: 10px; height: 10px; border-radius: 50%; }
+  .index-card p { font-size: 0.92rem; }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-size: 0.9rem;
+  }
+  th, td {
+    text-align: left;
+    padding: 8px 10px;
+    border-bottom: 1px solid var(--line);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12.5px;
+  }
+  th { color: var(--ink-dim); font-weight: 500; text-transform: uppercase; font-size: 10.5px; letter-spacing: 0.06em; }
+  td { color: var(--ink); }
+
+  .footnote {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: var(--ink-dim);
+    border-left: 2px solid var(--road);
+    padding: 4px 0 4px 14px;
+    margin-top: 20px;
+  }
+
+  .methodology-list {
+    margin-top: 16px;
+    padding-left: 0;
+    list-style: none;
+  }
+  .methodology-list li {
+    color: var(--ink-dim);
+    padding: 10px 0;
+    border-top: 1px solid var(--line);
+    font-size: 0.95rem;
+  }
+  .methodology-list li:first-child { border-top: none; }
+  .methodology-list strong { color: var(--ink); font-weight: 500; }
+
+  footer {
+    padding: 56px 0 80px;
+  }
+  .footer-links {
+    display: flex;
+    gap: 22px;
+    flex-wrap: wrap;
+    margin-top: 16px;
+  }
+  .footer-links a {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    text-decoration: none;
+    color: var(--ink-dim);
+  }
+  .footer-links a:hover { color: var(--ink); }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <a class="back-link" href="../../index.html">&larr; Back to portfolio</a>
+    <h1>Philadelphia Environmental Justice &amp; Climate Risk Index</h1>
+    <div class="subtitle">A census-tract-level composite index across 408 tracts</div>
+    <div class="tools-used">
+      <span>QGIS</span>
+      <span>Python / GeoPandas</span>
+      <span>qgis2web / Leaflet</span>
+      <span>EPA EJScreen</span>
+      <span>CDC PLACES</span>
+      <span>Census ACS</span>
+    </div>
+  </header>
+
+  <section id="intro">
+    <p>
+      Where you live in Philadelphia meaningfully shapes the environmental and health risks
+      you're exposed to day to day, air quality, industrial proximity, tree canopy, and
+      economic opportunity all vary sharply by neighborhood, and rarely in isolation.
+      Communities vulnerable to one risk are frequently vulnerable to several at once.
+    </p>
+    <p>
+      This project builds a single composite score for every census tract in Philadelphia,
+      combining environmental burden data, community health outcomes, social vulnerability,
+      and land-cover-derived climate exposure, modeled on the methodology behind EPA's
+      EJScreen tool. Everything below is built from public data using open-source tools,
+      code and full methodology linked at the bottom of this page.
+    </p>
+  </section>
+
+  <section id="map">
+    <div class="section-label"><span class="swatch" style="background:var(--water)"></span>Interactive Map</div>
+    <h2 class="section-title">Explore the index</h2>
+    <p>Use the layer control in the top-right of the map to switch between the composite score and each of the four sub-indices below.</p>
+    <div class="map-embed-wrap">
+      <iframe src="https://evanklarsen.github.io/Projects/ej-index-map/" loading="lazy" title="Interactive EJ and Climate Risk map"></iframe>
+    </div>
+    <div class="map-caption">Click any tract for its full score breakdown. Map hosted separately on GitHub Pages.</div>
+  </section>
+
+  <section id="breakdown">
+    <div class="section-label"><span class="swatch" style="background:var(--building)"></span>Breaking It Down</div>
+    <h2 class="section-title">Four sub-indices, one composite score</h2>
+    <p>Each tract's composite score is an equal-weighted average of four sub-indices, each built from a different data source and normalized to a 0–100 percentile scale.</p>
+
+    <div class="index-grid">
+      <div class="index-card">
+        <div class="index-card-title"><span class="swatch" style="background:var(--road)"></span>Environmental Burden</div>
+        <p>PM2.5, ozone, diesel particulate matter, air toxics cancer risk, and traffic proximity, sourced from EPA's EJScreen dataset. Higher scores reflect greater exposure to pollution from industrial activity, vehicle traffic, and land use.</p>
+      </div>
+      <div class="index-card">
+        <div class="index-card-title"><span class="swatch" style="background:var(--soil)"></span>Health Vulnerability</div>
+        <p>Community-level prevalence of asthma, coronary heart disease, and COPD (CDC PLACES), health outcomes strongly correlated with, and often compounded by, environmental burden.</p>
+      </div>
+      <div class="index-card">
+        <div class="index-card-title"><span class="swatch" style="background:var(--building)"></span>Social Vulnerability</div>
+        <p>Median household income, poverty rate, percent non-white population, and percent limited-English-speaking households (Census ACS), a proxy for a community's capacity to adapt to or recover from environmental and health stress.</p>
+      </div>
+      <div class="index-card">
+        <div class="index-card-title"><span class="swatch" style="background:var(--canopy)"></span>Climate Exposure</div>
+        <p>Percent tree canopy coverage, derived from Philadelphia's 2018 land cover classification. Inverted so that lower canopy, and therefore higher heat exposure, corresponds with a higher risk score.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="findings">
+    <div class="section-label"><span class="swatch" style="background:var(--canopy)"></span>Key Findings</div>
+    <h2 class="section-title">Where risk concentrates</h2>
+    <p>
+      The composite index identifies several tracts in Kensington and the surrounding North
+      Philadelphia area as facing the highest combined environmental, health, and social
+      vulnerability in the city. Tracts 176.01, 176.02, 177.02, 195.01, 195.02, 197, and 199
+      form a contiguous cluster scoring in the 77–81 range, consistent with the area's
+      documented history of industrial land use and long-standing socioeconomic disinvestment.
+    </p>
+
+    <table>
+      <tr><th>GEOID</th><th>Tract</th><th>Composite Score</th></tr>
+      <tr><td>42101017602</td><td>176.02</td><td>81.24</td></tr>
+      <tr><td>42101019700</td><td>197</td><td>80.14</td></tr>
+      <tr><td>42101019900</td><td>199</td><td>79.71</td></tr>
+      <tr><td>42101017601</td><td>176.01</td><td>78.94</td></tr>
+      <tr><td>42101038301</td><td>383.01</td><td>77.74</td></tr>
+      <tr><td>42101019502</td><td>195.02</td><td>77.66</td></tr>
+      <tr><td>42101019501</td><td>195.01</td><td>77.59</td></tr>
+      <tr><td>42101017702</td><td>177.02</td><td>77.26</td></tr>
+    </table>
+
+    <p style="margin-top:20px;">
+      The concentration of high scores in a single geographic cluster, rather than scattered
+      across unrelated tracts citywide, is itself a meaningful finding: it suggests
+      overlapping environmental and social risk factors compounding within a specific area,
+      rather than each sub-index driving risk independently in different neighborhoods.
+    </p>
+
+    <div class="footnote">
+      Two additional tracts, 9800.03 and 9807.02, scored highly (78.99 and 78.35) but fall
+      within Philadelphia's non-standard 9800-series geography, largely Fairmount Park and
+      similar low-population parkland. With very few residents, small raw counts there
+      translate into statistically extreme percentile scores that don't reflect
+      neighborhood-level vulnerability. They're included in the full dataset for
+      completeness but excluded from this interpretation.
+    </div>
+  </section>
+
+  <section id="methodology">
+    <div class="section-label"><span class="swatch" style="background:var(--road)"></span>Methodology</div>
+    <h2 class="section-title">How the index was built</h2>
+    <ul class="methodology-list">
+      <li><strong>Geography:</strong> Philadelphia County, at the census tract level (408 tracts), using Census TIGER/Line boundaries.</li>
+      <li><strong>Normalization:</strong> every raw indicator is converted to a 0–100 percentile rank within Philadelphia, the same approach EPA's EJScreen uses, rather than comparing raw units directly against each other.</li>
+      <li><strong>Weighting:</strong> the four sub-indices are combined with equal weight into the final composite score. This is a simple, defensible default rather than an attempt to justify unequal weighting.</li>
+      <li><strong>EJScreen data source:</strong> EPA discontinued official public access to EJScreen in February 2025. Data used here (v2.3) is preserved and hosted by the University of Chicago's Federal Data Rescue Project, a volunteer effort to maintain access to removed federal datasets.</li>
+      <li><strong>Land cover:</strong> tree canopy percentage derived via zonal histogram analysis on the University of Vermont Spatial Analysis Laboratory's 2018 Philadelphia land cover raster (7-class classification, sourced from LiDAR and NAIP imagery).</li>
+      <li><strong>Code:</strong> all data processing and index calculation is available on <a href="https://github.com/evanklarsen" target="_blank" rel="noopener">GitHub</a>.</li>
+    </ul>
+  </section>
+
+  <footer>
+    <div class="footer-links">
+      <a href="../../index.html">&larr; Back to portfolio</a>
+      <a href="https://evanklarsen.github.io/Projects/ej-index-map/" target="_blank" rel="noopener">Full interactive map ↗</a>
+      <a href="https://github.com/evanklarsen" target="_blank" rel="noopener">GitHub ↗</a>
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>

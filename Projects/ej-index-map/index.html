@@ -12,7 +12,7 @@
         <link rel="stylesheet" href="css/fontawesome-all.min.css">
         <link rel="stylesheet" href="css/leaflet.photon.css">
         <style>
-        #map {
+        html, body, #map {
 		width: 100%;
     		height: 100%;
     		padding: 0;
@@ -826,42 +826,40 @@ function pop_EJClimateRiskIndex_1(feature, layer) {
         var marker = null;
         // Add an event listener to the Photon control to create a marker from the returned geoJSON data
         var z = null;
-        photonControl.on('selected', function(e) {
-            console.log(photonControl.search.resultsContainer);
+	photonControl.on('selected', function(e) {
             if (x != null) {
-                map.removeLayer(obj3.marker);
+                if (marker != null) map.removeLayer(marker);
                 map.removeLayer(x);
             }
-            obj2.gcd = e.choice;
-            x = L.geoJSON(obj2.gcd).addTo(map);
-            var label = typeof obj2.gcd.properties.label === 'undefined' ? obj2.gcd.properties.display_name : obj2.gcd.properties.label;
-            obj3.marker = L.marker(x.getLayers()[0].getLatLng()).bindPopup(label).addTo(map);
+            x = L.geoJSON(e.choice).addTo(map);
+            var label = typeof e.choice.properties.label === 'undefined' ? e.choice.properties.display_name : e.choice.properties.label;
+            marker = L.marker(x.getLayers()[0].getLatLng()).bindPopup(label).addTo(map);
             map.setView(x.getLayers()[0].getLatLng(), 17);
-            z = typeof e.choice.properties.label === 'undefined'? e.choice.properties.display_name : e.choice.properties.label;
-            console.log(e);
-            e.target.input.value = z;
-        });
-        var search = document.getElementsByClassName("leaflet-photon leaflet-control")[0];
-        search.classList.add("leaflet-control-search")
-        search.style.display = "flex";
-        search.style.backgroundColor="rgba(255,255,255,0.5)" 
-
-        // Create the new button element
-        var button = document.createElement("div");
-        button.id = "gcd-button-control";
-        button.className = "gcd-gl-btn fa fa-search search-button";
-
-        // Insert the button at the beginning of the search control
-        search.insertBefore(button, search.firstChild);
-        last = search.lastChild;
-        last.style.display = "none";
-        button.addEventListener("click", function (e) {
-            if (last.style.display === "none") {
-                last.style.display = "block";
-            } else {
-                last.style.display = "none";
+            if (e.target && e.target.input) {
+                e.target.input.value = label;
             }
         });
+
+        var search = document.getElementsByClassName("leaflet-photon leaflet-control")[0];
+        if (search) {
+            search.classList.add("leaflet-control-search");
+            search.style.display = "flex";
+            search.style.backgroundColor = "rgba(255,255,255,0.5)";
+
+            var button = document.createElement("div");
+            button.id = "gcd-button-control";
+            button.className = "gcd-gl-btn fa fa-search search-button";
+
+            search.insertBefore(button, search.firstChild);
+            var last = search.lastChild;
+            if (last) last.style.display = "none";
+
+            button.addEventListener("click", function (e) {
+                if (last) {
+                    last.style.display = (last.style.display === "none") ? "block" : "none";
+                }
+            });
+        }
         var overlaysTree = [
             {label: 'Climate Exposure Index<br /><table><tr><td style="text-align: center;"><img src="legend/ClimateExposureIndex_5_024512019610.png" /></td><td>0 - 20 (Very Low)</td></tr><tr><td style="text-align: center;"><img src="legend/ClimateExposureIndex_5_2019614014711.png" /></td><td>20 - 40 (Low)</td></tr><tr><td style="text-align: center;"><img src="legend/ClimateExposureIndex_5_4014716009802.png" /></td><td>40 - 60 (Moderate)</td></tr><tr><td style="text-align: center;"><img src="legend/ClimateExposureIndex_5_6009808004903.png" /></td><td>60 - 80 (High)</td></tr><tr><td style="text-align: center;"><img src="legend/ClimateExposureIndex_5_80049010000004.png" /></td><td>80 - 100 (Very High)</td></tr></table>', layer: layer_ClimateExposureIndex_5, radioGroup: 'indices'},
             {label: 'Social Vulnerability Index<br /><table><tr><td style="text-align: center;"><img src="legend/SocialVulnerabilityIndex_4_000002433170.png" /></td><td>0 - 24 (Very Low)</td></tr><tr><td style="text-align: center;"><img src="legend/SocialVulnerabilityIndex_4_2433174311801.png" /></td><td>24 - 43 (Low)</td></tr><tr><td style="text-align: center;"><img src="legend/SocialVulnerabilityIndex_4_4311805843002.png" /></td><td>43 - 58 (Moderate)</td></tr><tr><td style="text-align: center;"><img src="legend/SocialVulnerabilityIndex_4_5843007036493.png" /></td><td>58 - 70 (High)</td></tr><tr><td style="text-align: center;"><img src="legend/SocialVulnerabilityIndex_4_7036499786704.png" /></td><td>70 - 98 (Very High)</td></tr></table>', layer: layer_SocialVulnerabilityIndex_4, radioGroup: 'indices'},

@@ -13,8 +13,10 @@
         <link rel="stylesheet" href="css/leaflet.photon.css">
         <style>
         #map {
-            width: 2406px;
-            height: 887px;
+		width: 100%;
+    		height: 100%;
+    		padding: 0;
+    		margin: 0;
         }
         </style>
         <title>Philadelphia EJ & Climate Risk Index</title>
@@ -137,6 +139,7 @@
         }).addTo(map);
         var bounds_group = new L.featureGroup([]);
         function setBounds() {
+            map.fitBounds([[39.867, -75.280], [40.138, -75.000]]);
         }
         map.createPane('pane_OSMStandard_0');
         map.getPane('pane_OSMStandard_0').style.zIndex = 400;
@@ -151,7 +154,7 @@
         });
         layer_OSMStandard_0;
         map.addLayer(layer_OSMStandard_0);
-        function pop_EJClimateRiskIndex_1(feature, layer) {
+function pop_EJClimateRiskIndex_1(feature, layer) {
             layer.on({
                 mouseout: function(e) {
                     if (typeof layer.closePopup == 'function') {
@@ -164,136 +167,31 @@
                 },
                 mouseover: highlightFeature,
             });
-            var popupContent = '<table>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['GEOID'] !== null ? autolinker.link(String(feature.properties['GEOID']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['NAME'] !== null ? autolinker.link(String(feature.properties['NAME']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['EJScreen_Philadelphia_Tracts_PM25'] !== null ? autolinker.link(String(feature.properties['EJScreen_Philadelphia_Tracts_PM25']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['EJScreen_Philadelphia_Tracts_OZONE'] !== null ? autolinker.link(String(feature.properties['EJScreen_Philadelphia_Tracts_OZONE']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['EJScreen_Philadelphia_Tracts_DSLPM'] !== null ? autolinker.link(String(feature.properties['EJScreen_Philadelphia_Tracts_DSLPM']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['EJScreen_Philadelphia_Tracts_RSEI_AIR'] !== null ? autolinker.link(String(feature.properties['EJScreen_Philadelphia_Tracts_RSEI_AIR']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['EJScreen_Philadelphia_Tracts_PTRAF'] !== null ? autolinker.link(String(feature.properties['EJScreen_Philadelphia_Tracts_PTRAF']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['HISTO_1'] !== null ? autolinker.link(String(feature.properties['HISTO_1']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['HISTO_2'] !== null ? autolinker.link(String(feature.properties['HISTO_2']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['HISTO_3'] !== null ? autolinker.link(String(feature.properties['HISTO_3']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['HISTO_4'] !== null ? autolinker.link(String(feature.properties['HISTO_4']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['HISTO_5'] !== null ? autolinker.link(String(feature.properties['HISTO_5']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['HISTO_6'] !== null ? autolinker.link(String(feature.properties['HISTO_6']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['HISTO_7'] !== null ? autolinker.link(String(feature.properties['HISTO_7']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['pct_tree_canopy'] !== null ? autolinker.link(String(feature.properties['pct_tree_canopy']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Environmental Justice Project - Philadelphia_Census_median_hh_income'] !== null ? autolinker.link(String(feature.properties['Environmental Justice Project - Philadelphia_Census_median_hh_income']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Environmental Justice Project - Philadelphia_Census_poverty_rate'] !== null ? autolinker.link(String(feature.properties['Environmental Justice Project - Philadelphia_Census_poverty_rate']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Environmental Justice Project - Philadelphia_Census_pct_nonwhite'] !== null ? autolinker.link(String(feature.properties['Environmental Justice Project - Philadelphia_Census_pct_nonwhite']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Environmental Justice Project - Philadelphia_Census_pct_limited_english'] !== null ? autolinker.link(String(feature.properties['Environmental Justice Project - Philadelphia_Census_pct_limited_english']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Environmental Justice Project - Philadelphia_Census_Asthma'] !== null ? autolinker.link(String(feature.properties['Environmental Justice Project - Philadelphia_Census_Asthma']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Environmental Justice Project - Philadelphia_Census_COPD'] !== null ? autolinker.link(String(feature.properties['Environmental Justice Project - Philadelphia_Census_COPD']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Environmental Justice Project - Philadelphia_Census_Heart_Disease'] !== null ? autolinker.link(String(feature.properties['Environmental Justice Project - Philadelphia_Census_Heart_Disease']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['EJScreen_Philadelphia_Tracts_PM25_pctile'] !== null ? autolinker.link(String(feature.properties['EJScreen_Philadelphia_Tracts_PM25_pctile']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['EJScreen_Philadelphia_Tracts_OZONE_pctile'] !== null ? autolinker.link(String(feature.properties['EJScreen_Philadelphia_Tracts_OZONE_pctile']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['EJScreen_Philadelphia_Tracts_DSLPM_pctile'] !== null ? autolinker.link(String(feature.properties['EJScreen_Philadelphia_Tracts_DSLPM_pctile']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['EJScreen_Philadelphia_Tracts_RSEI_AIR_pctile'] !== null ? autolinker.link(String(feature.properties['EJScreen_Philadelphia_Tracts_RSEI_AIR_pctile']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['EJScreen_Philadelphia_Tracts_PTRAF_pctile'] !== null ? autolinker.link(String(feature.properties['EJScreen_Philadelphia_Tracts_PTRAF_pctile']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Environmental Justice Project - Philadelphia_Census_Asthma_pctile'] !== null ? autolinker.link(String(feature.properties['Environmental Justice Project - Philadelphia_Census_Asthma_pctile']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Environmental Justice Project - Philadelphia_Census_Heart_Disease_pctile'] !== null ? autolinker.link(String(feature.properties['Environmental Justice Project - Philadelphia_Census_Heart_Disease_pctile']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Environmental Justice Project - Philadelphia_Census_COPD_pctile'] !== null ? autolinker.link(String(feature.properties['Environmental Justice Project - Philadelphia_Census_COPD_pctile']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Environmental Justice Project - Philadelphia_Census_poverty_rate_pctile'] !== null ? autolinker.link(String(feature.properties['Environmental Justice Project - Philadelphia_Census_poverty_rate_pctile']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Environmental Justice Project - Philadelphia_Census_pct_nonwhite_pctile'] !== null ? autolinker.link(String(feature.properties['Environmental Justice Project - Philadelphia_Census_pct_nonwhite_pctile']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Environmental Justice Project - Philadelphia_Census_pct_limited_english_pctile'] !== null ? autolinker.link(String(feature.properties['Environmental Justice Project - Philadelphia_Census_pct_limited_english_pctile']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['income_pctile'] !== null ? autolinker.link(String(feature.properties['income_pctile']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['heat_exposure_proxy'] !== null ? autolinker.link(String(feature.properties['heat_exposure_proxy']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['heat_exposure_pctile'] !== null ? autolinker.link(String(feature.properties['heat_exposure_pctile']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['environmental_burden_index'] !== null ? autolinker.link(String(feature.properties['environmental_burden_index']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['health_vulnerability_index'] !== null ? autolinker.link(String(feature.properties['health_vulnerability_index']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['social_vulnerability_index'] !== null ? autolinker.link(String(feature.properties['social_vulnerability_index']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['climate_exposure_index'] !== null ? autolinker.link(String(feature.properties['climate_exposure_index']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['composite_risk_score'] !== null ? autolinker.link(String(feature.properties['composite_risk_score']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
+            var popupContent = '<table style="width: 100%; border-collapse: collapse;">\
+                    <tr style="border-bottom: 1px solid #ccc;"><th style="text-align: left; padding: 4px;">Census Tract</th><td style="padding: 4px;">' + (feature.properties['NAME'] !== null ? autolinker.link(String(feature.properties['NAME']).replace(/'/g, '\'').toLocaleString()) : '') + '</td></tr>\
+                    <tr style="border-bottom: 1px solid #ccc;"><th style="text-align: left; padding: 4px;">GEOID</th><td style="padding: 4px;">' + (feature.properties['GEOID'] !== null ? autolinker.link(String(feature.properties['GEOID']).replace(/'/g, '\'').toLocaleString()) : '') + '</td></tr>\
+                    <tr style="border-bottom: 2px solid #333; background-color: #f0f0f0;"><th style="text-align: left; padding: 4px;"><strong>Composite Risk Score</strong></th><td style="padding: 4px;"><strong>' + (feature.properties['composite_risk_score'] !== null ? autolinker.link(String(feature.properties['composite_risk_score']).replace(/'/g, '\'').toLocaleString()) : '') + '</strong></td></tr>\
+                    <tr style="border-bottom: 1px solid #ccc;"><th style="text-align: left; padding: 4px;">Environmental Burden Index</th><td style="padding: 4px;">' + (feature.properties['environmental_burden_index'] !== null ? autolinker.link(String(feature.properties['environmental_burden_index']).replace(/'/g, '\'').toLocaleString()) : '') + '</td></tr>\
+                    <tr style="border-bottom: 1px solid #ccc;"><th style="text-align: left; padding: 4px;">Health Vulnerability Index</th><td style="padding: 4px;">' + (feature.properties['health_vulnerability_index'] !== null ? autolinker.link(String(feature.properties['health_vulnerability_index']).replace(/'/g, '\'').toLocaleString()) : '') + '</td></tr>\
+                    <tr style="border-bottom: 1px solid #ccc;"><th style="text-align: left; padding: 4px;">Social Vulnerability Index</th><td style="padding: 4px;">' + (feature.properties['social_vulnerability_index'] !== null ? autolinker.link(String(feature.properties['social_vulnerability_index']).replace(/'/g, '\'').toLocaleString()) : '') + '</td></tr>\
+                    <tr style="border-bottom: 1px solid #ccc;"><th style="text-align: left; padding: 4px;">Climate Exposure Index</th><td style="padding: 4px;">' + (feature.properties['climate_exposure_index'] !== null ? autolinker.link(String(feature.properties['climate_exposure_index']).replace(/'/g, '\'').toLocaleString()) : '') + '</td></tr>\
+                    <tr style="border-bottom: 1px solid #ccc;"><th style="text-align: left; padding: 4px;">Tree Canopy Cover (%)</th><td style="padding: 4px;">' + (feature.properties['pct_tree_canopy'] !== null ? autolinker.link(String(feature.properties['pct_tree_canopy']).replace(/'/g, '\'').toLocaleString()) : '') + '</td></tr>\
+                    <tr style="border-bottom: 1px solid #ccc;"><th style="text-align: left; padding: 4px;">PM2.5 Air Pollution</th><td style="padding: 4px;">' + (feature.properties['EJScreen_Philadelphia_Tracts_PM25'] !== null ? autolinker.link(String(feature.properties['EJScreen_Philadelphia_Tracts_PM25']).replace(/'/g, '\'').toLocaleString()) : '') + '</td></tr>\
+                    <tr style="border-bottom: 1px solid #ccc;"><th style="text-align: left; padding: 4px;">Ozone Level</th><td style="padding: 4px;">' + (feature.properties['EJScreen_Philadelphia_Tracts_OZONE'] !== null ? autolinker.link(String(feature.properties['EJScreen_Philadelphia_Tracts_OZONE']).replace(/'/g, '\'').toLocaleString()) : '') + '</td></tr>\
+                    <tr style="border-bottom: 1px solid #ccc;"><th style="text-align: left; padding: 4px;">Diesel Particulate Matter</th><td style="padding: 4px;">' + (feature.properties['EJScreen_Philadelphia_Tracts_DSLPM'] !== null ? autolinker.link(String(feature.properties['EJScreen_Philadelphia_Tracts_DSLPM']).replace(/'/g, '\'').toLocaleString()) : '') + '</td></tr>\
+                    <tr style="border-bottom: 1px solid #ccc;"><th style="text-align: left; padding: 4px;">Median Household Income</th><td style="padding: 4px;">' + (feature.properties['Environmental Justice Project - Philadelphia_Census_median_hh_income'] !== null ? autolinker.link(String(feature.properties['Environmental Justice Project - Philadelphia_Census_median_hh_income']).replace(/'/g, '\'').toLocaleString()) : '') + '</td></tr>\
+                    <tr style="border-bottom: 1px solid #ccc;"><th style="text-align: left; padding: 4px;">Poverty Rate</th><td style="padding: 4px;">' + (feature.properties['Environmental Justice Project - Philadelphia_Census_poverty_rate'] !== null ? autolinker.link(String(feature.properties['Environmental Justice Project - Philadelphia_Census_poverty_rate']).replace(/'/g, '\'').toLocaleString()) : '') + '</td></tr>\
+                    <tr style="border-bottom: 1px solid #ccc;"><th style="text-align: left; padding: 4px;">People of Color (%)</th><td style="padding: 4px;">' + (feature.properties['Environmental Justice Project - Philadelphia_Census_pct_nonwhite'] !== null ? autolinker.link(String(feature.properties['Environmental Justice Project - Philadelphia_Census_pct_nonwhite']).replace(/'/g, '\'').toLocaleString()) : '') + '</td></tr>\
+                    <tr style="border-bottom: 1px solid #ccc;"><th style="text-align: left; padding: 4px;">Limited English (%)</th><td style="padding: 4px;">' + (feature.properties['Environmental Justice Project - Philadelphia_Census_pct_limited_english'] !== null ? autolinker.link(String(feature.properties['Environmental Justice Project - Philadelphia_Census_pct_limited_english']).replace(/'/g, '\'').toLocaleString()) : '') + '</td></tr>\
+                    <tr style="border-bottom: 1px solid #ccc;"><th style="text-align: left; padding: 4px;">Asthma Rate</th><td style="padding: 4px;">' + (feature.properties['Environmental Justice Project - Philadelphia_Census_Asthma'] !== null ? autolinker.link(String(feature.properties['Environmental Justice Project - Philadelphia_Census_Asthma']).replace(/'/g, '\'').toLocaleString()) : '') + '</td></tr>\
+                    <tr style="border-bottom: 1px solid #ccc;"><th style="text-align: left; padding: 4px;">COPD Rate</th><td style="padding: 4px;">' + (feature.properties['Environmental Justice Project - Philadelphia_Census_COPD'] !== null ? autolinker.link(String(feature.properties['Environmental Justice Project - Philadelphia_Census_COPD']).replace(/'/g, '\'').toLocaleString()) : '') + '</td></tr>\
+                    <tr style="border-bottom: 1px solid #ccc;"><th style="text-align: left; padding: 4px;">Heart Disease Rate</th><td style="padding: 4px;">' + (feature.properties['Environmental Justice Project - Philadelphia_Census_Heart_Disease'] !== null ? autolinker.link(String(feature.properties['Environmental Justice Project - Philadelphia_Census_Heart_Disease']).replace(/'/g, '\'').toLocaleString()) : '') + '</td></tr>\
                 </table>';
             var content = removeEmptyRowsFromPopupContent(popupContent, feature);
-			layer.on('popupopen', function(e) {
-				addClassToPopupIfMedia(content, e.popup);
-			});
-			layer.bindPopup(content, { maxHeight: 400 });
+            layer.on('popupopen', function(e) {
+                addClassToPopupIfMedia(content, e.popup);
+            });
+            layer.bindPopup(content, { maxHeight: 400 });
         }
 
         function style_EJClimateRiskIndex_1_0(feature) {
@@ -400,130 +298,25 @@
                 },
                 mouseover: highlightFeature,
             });
-            var popupContent = '<table>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['GEOID'] !== null ? autolinker.link(String(feature.properties['GEOID']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['NAME'] !== null ? autolinker.link(String(feature.properties['NAME']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['EJScreen_Philadelphia_Tracts_PM25'] !== null ? autolinker.link(String(feature.properties['EJScreen_Philadelphia_Tracts_PM25']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['EJScreen_Philadelphia_Tracts_OZONE'] !== null ? autolinker.link(String(feature.properties['EJScreen_Philadelphia_Tracts_OZONE']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['EJScreen_Philadelphia_Tracts_DSLPM'] !== null ? autolinker.link(String(feature.properties['EJScreen_Philadelphia_Tracts_DSLPM']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['EJScreen_Philadelphia_Tracts_RSEI_AIR'] !== null ? autolinker.link(String(feature.properties['EJScreen_Philadelphia_Tracts_RSEI_AIR']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['EJScreen_Philadelphia_Tracts_PTRAF'] !== null ? autolinker.link(String(feature.properties['EJScreen_Philadelphia_Tracts_PTRAF']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['HISTO_1'] !== null ? autolinker.link(String(feature.properties['HISTO_1']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['HISTO_2'] !== null ? autolinker.link(String(feature.properties['HISTO_2']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['HISTO_3'] !== null ? autolinker.link(String(feature.properties['HISTO_3']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['HISTO_4'] !== null ? autolinker.link(String(feature.properties['HISTO_4']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['HISTO_5'] !== null ? autolinker.link(String(feature.properties['HISTO_5']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['HISTO_6'] !== null ? autolinker.link(String(feature.properties['HISTO_6']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['HISTO_7'] !== null ? autolinker.link(String(feature.properties['HISTO_7']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['pct_tree_canopy'] !== null ? autolinker.link(String(feature.properties['pct_tree_canopy']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Environmental Justice Project - Philadelphia_Census_median_hh_income'] !== null ? autolinker.link(String(feature.properties['Environmental Justice Project - Philadelphia_Census_median_hh_income']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Environmental Justice Project - Philadelphia_Census_poverty_rate'] !== null ? autolinker.link(String(feature.properties['Environmental Justice Project - Philadelphia_Census_poverty_rate']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Environmental Justice Project - Philadelphia_Census_pct_nonwhite'] !== null ? autolinker.link(String(feature.properties['Environmental Justice Project - Philadelphia_Census_pct_nonwhite']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Environmental Justice Project - Philadelphia_Census_pct_limited_english'] !== null ? autolinker.link(String(feature.properties['Environmental Justice Project - Philadelphia_Census_pct_limited_english']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Environmental Justice Project - Philadelphia_Census_Asthma'] !== null ? autolinker.link(String(feature.properties['Environmental Justice Project - Philadelphia_Census_Asthma']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Environmental Justice Project - Philadelphia_Census_COPD'] !== null ? autolinker.link(String(feature.properties['Environmental Justice Project - Philadelphia_Census_COPD']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Environmental Justice Project - Philadelphia_Census_Heart_Disease'] !== null ? autolinker.link(String(feature.properties['Environmental Justice Project - Philadelphia_Census_Heart_Disease']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['EJScreen_Philadelphia_Tracts_PM25_pctile'] !== null ? autolinker.link(String(feature.properties['EJScreen_Philadelphia_Tracts_PM25_pctile']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['EJScreen_Philadelphia_Tracts_OZONE_pctile'] !== null ? autolinker.link(String(feature.properties['EJScreen_Philadelphia_Tracts_OZONE_pctile']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['EJScreen_Philadelphia_Tracts_DSLPM_pctile'] !== null ? autolinker.link(String(feature.properties['EJScreen_Philadelphia_Tracts_DSLPM_pctile']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['EJScreen_Philadelphia_Tracts_RSEI_AIR_pctile'] !== null ? autolinker.link(String(feature.properties['EJScreen_Philadelphia_Tracts_RSEI_AIR_pctile']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['EJScreen_Philadelphia_Tracts_PTRAF_pctile'] !== null ? autolinker.link(String(feature.properties['EJScreen_Philadelphia_Tracts_PTRAF_pctile']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Environmental Justice Project - Philadelphia_Census_Asthma_pctile'] !== null ? autolinker.link(String(feature.properties['Environmental Justice Project - Philadelphia_Census_Asthma_pctile']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Environmental Justice Project - Philadelphia_Census_Heart_Disease_pctile'] !== null ? autolinker.link(String(feature.properties['Environmental Justice Project - Philadelphia_Census_Heart_Disease_pctile']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Environmental Justice Project - Philadelphia_Census_COPD_pctile'] !== null ? autolinker.link(String(feature.properties['Environmental Justice Project - Philadelphia_Census_COPD_pctile']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Environmental Justice Project - Philadelphia_Census_poverty_rate_pctile'] !== null ? autolinker.link(String(feature.properties['Environmental Justice Project - Philadelphia_Census_poverty_rate_pctile']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Environmental Justice Project - Philadelphia_Census_pct_nonwhite_pctile'] !== null ? autolinker.link(String(feature.properties['Environmental Justice Project - Philadelphia_Census_pct_nonwhite_pctile']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Environmental Justice Project - Philadelphia_Census_pct_limited_english_pctile'] !== null ? autolinker.link(String(feature.properties['Environmental Justice Project - Philadelphia_Census_pct_limited_english_pctile']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['income_pctile'] !== null ? autolinker.link(String(feature.properties['income_pctile']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['heat_exposure_proxy'] !== null ? autolinker.link(String(feature.properties['heat_exposure_proxy']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['heat_exposure_pctile'] !== null ? autolinker.link(String(feature.properties['heat_exposure_pctile']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['environmental_burden_index'] !== null ? autolinker.link(String(feature.properties['environmental_burden_index']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['health_vulnerability_index'] !== null ? autolinker.link(String(feature.properties['health_vulnerability_index']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['social_vulnerability_index'] !== null ? autolinker.link(String(feature.properties['social_vulnerability_index']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['climate_exposure_index'] !== null ? autolinker.link(String(feature.properties['climate_exposure_index']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['composite_risk_score'] !== null ? autolinker.link(String(feature.properties['composite_risk_score']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
+            var popupContent = '<table style="width: 100%; border-collapse: collapse;">\
+                    <tr style="border-bottom: 1px solid #ccc;"><th style="text-align: left; padding: 4px;">Census Tract</th><td style="padding: 4px;">' + (feature.properties['NAME'] !== null ? autolinker.link(String(feature.properties['NAME']).replace(/'/g, '\'').toLocaleString()) : '') + '</td></tr>\
+                    <tr style="border-bottom: 1px solid #ccc;"><th style="text-align: left; padding: 4px;">GEOID</th><td style="padding: 4px;">' + (feature.properties['GEOID'] !== null ? autolinker.link(String(feature.properties['GEOID']).replace(/'/g, '\'').toLocaleString()) : '') + '</td></tr>\
+                    <tr style="border-bottom: 2px solid #333; background-color: #f0f0f0;"><th style="text-align: left; padding: 4px;"><strong>Composite Risk Score</strong></th><td style="padding: 4px;"><strong>' + (feature.properties['composite_risk_score'] !== null ? autolinker.link(String(feature.properties['composite_risk_score']).replace(/'/g, '\'').toLocaleString()) : '') + '</strong></td></tr>\
+                    <tr style="border-bottom: 1px solid #ccc;"><th style="text-align: left; padding: 4px;">Environmental Burden Index</th><td style="padding: 4px;">' + (feature.properties['environmental_burden_index'] !== null ? autolinker.link(String(feature.properties['environmental_burden_index']).replace(/'/g, '\'').toLocaleString()) : '') + '</td></tr>\
+                    <tr style="border-bottom: 1px solid #ccc;"><th style="text-align: left; padding: 4px;">Health Vulnerability Index</th><td style="padding: 4px;">' + (feature.properties['health_vulnerability_index'] !== null ? autolinker.link(String(feature.properties['health_vulnerability_index']).replace(/'/g, '\'').toLocaleString()) : '') + '</td></tr>\
+                    <tr style="border-bottom: 1px solid #ccc;"><th style="text-align: left; padding: 4px;">Social Vulnerability Index</th><td style="padding: 4px;">' + (feature.properties['social_vulnerability_index'] !== null ? autolinker.link(String(feature.properties['social_vulnerability_index']).replace(/'/g, '\'').toLocaleString()) : '') + '</td></tr>\
+                    <tr style="border-bottom: 1px solid #ccc;"><th style="text-align: left; padding: 4px;">Climate Exposure Index</th><td style="padding: 4px;">' + (feature.properties['climate_exposure_index'] !== null ? autolinker.link(String(feature.properties['climate_exposure_index']).replace(/'/g, '\'').toLocaleString()) : '') + '</td></tr>\
+                    <tr style="border-bottom: 1px solid #ccc;"><th style="text-align: left; padding: 4px;">Tree Canopy Cover (%)</th><td style="padding: 4px;">' + (feature.properties['pct_tree_canopy'] !== null ? autolinker.link(String(feature.properties['pct_tree_canopy']).replace(/'/g, '\'').toLocaleString()) : '') + '</td></tr>\
+                    <tr style="border-bottom: 1px solid #ccc;"><th style="text-align: left; padding: 4px;">PM2.5 Air Pollution</th><td style="padding: 4px;">' + (feature.properties['EJScreen_Philadelphia_Tracts_PM25'] !== null ? autolinker.link(String(feature.properties['EJScreen_Philadelphia_Tracts_PM25']).replace(/'/g, '\'').toLocaleString()) : '') + '</td></tr>\
+                    <tr style="border-bottom: 1px solid #ccc;"><th style="text-align: left; padding: 4px;">Ozone Level</th><td style="padding: 4px;">' + (feature.properties['EJScreen_Philadelphia_Tracts_OZONE'] !== null ? autolinker.link(String(feature.properties['EJScreen_Philadelphia_Tracts_OZONE']).replace(/'/g, '\'').toLocaleString()) : '') + '</td></tr>\
+                    <tr style="border-bottom: 1px solid #ccc;"><th style="text-align: left; padding: 4px;">Diesel Particulate Matter</th><td style="padding: 4px;">' + (feature.properties['EJScreen_Philadelphia_Tracts_DSLPM'] !== null ? autolinker.link(String(feature.properties['EJScreen_Philadelphia_Tracts_DSLPM']).replace(/'/g, '\'').toLocaleString()) : '') + '</td></tr>\
+                    <tr style="border-bottom: 1px solid #ccc;"><th style="text-align: left; padding: 4px;">Median Household Income</th><td style="padding: 4px;">' + (feature.properties['Environmental Justice Project - Philadelphia_Census_median_hh_income'] !== null ? autolinker.link(String(feature.properties['Environmental Justice Project - Philadelphia_Census_median_hh_income']).replace(/'/g, '\'').toLocaleString()) : '') + '</td></tr>\
+                    <tr style="border-bottom: 1px solid #ccc;"><th style="text-align: left; padding: 4px;">Poverty Rate</th><td style="padding: 4px;">' + (feature.properties['Environmental Justice Project - Philadelphia_Census_poverty_rate'] !== null ? autolinker.link(String(feature.properties['Environmental Justice Project - Philadelphia_Census_poverty_rate']).replace(/'/g, '\'').toLocaleString()) : '') + '</td></tr>\
+                    <tr style="border-bottom: 1px solid #ccc;"><th style="text-align: left; padding: 4px;">People of Color (%)</th><td style="padding: 4px;">' + (feature.properties['Environmental Justice Project - Philadelphia_Census_pct_nonwhite'] !== null ? autolinker.link(String(feature.properties['Environmental Justice Project - Philadelphia_Census_pct_nonwhite']).replace(/'/g, '\'').toLocaleString()) : '') + '</td></tr>\
+                    <tr style="border-bottom: 1px solid #ccc;"><th style="text-align: left; padding: 4px;">Limited English (%)</th><td style="padding: 4px;">' + (feature.properties['Environmental Justice Project - Philadelphia_Census_pct_limited_english'] !== null ? autolinker.link(String(feature.properties['Environmental Justice Project - Philadelphia_Census_pct_limited_english']).replace(/'/g, '\'').toLocaleString()) : '') + '</td></tr>\
+                    <tr style="border-bottom: 1px solid #ccc;"><th style="text-align: left; padding: 4px;">Asthma Rate</th><td style="padding: 4px;">' + (feature.properties['Environmental Justice Project - Philadelphia_Census_Asthma'] !== null ? autolinker.link(String(feature.properties['Environmental Justice Project - Philadelphia_Census_Asthma']).replace(/'/g, '\'').toLocaleString()) : '') + '</td></tr>\
+                    <tr style="border-bottom: 1px solid #ccc;"><th style="text-align: left; padding: 4px;">COPD Rate</th><td style="padding: 4px;">' + (feature.properties['Environmental Justice Project - Philadelphia_Census_COPD'] !== null ? autolinker.link(String(feature.properties['Environmental Justice Project - Philadelphia_Census_COPD']).replace(/'/g, '\'').toLocaleString()) : '') + '</td></tr>\
+                    <tr style="border-bottom: 1px solid #ccc;"><th style="text-align: left; padding: 4px;">Heart Disease Rate</th><td style="padding: 4px;">' + (feature.properties['Environmental Justice Project - Philadelphia_Census_Heart_Disease'] !== null ? autolinker.link(String(feature.properties['Environmental Justice Project - Philadelphia_Census_Heart_Disease']).replace(/'/g, '\'').toLocaleString()) : '') + '</td></tr>\
                 </table>';
             var content = removeEmptyRowsFromPopupContent(popupContent, feature);
 			layer.on('popupopen', function(e) {
@@ -622,7 +415,7 @@
             style: style_EnvironmentalBurdenIndex_2_0,
         });
         bounds_group.addLayer(layer_EnvironmentalBurdenIndex_2);
-        map.addLayer(layer_EnvironmentalBurdenIndex_2);
+        // map.addLayer(layer_EnvironmentalBurdenIndex_2);
         function pop_Health_VulnerabilityIndex_3(feature, layer) {
             layer.on({
                 mouseout: function(e) {
@@ -636,130 +429,25 @@
                 },
                 mouseover: highlightFeature,
             });
-            var popupContent = '<table>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['GEOID'] !== null ? autolinker.link(String(feature.properties['GEOID']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['NAME'] !== null ? autolinker.link(String(feature.properties['NAME']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['EJScreen_Philadelphia_Tracts_PM25'] !== null ? autolinker.link(String(feature.properties['EJScreen_Philadelphia_Tracts_PM25']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['EJScreen_Philadelphia_Tracts_OZONE'] !== null ? autolinker.link(String(feature.properties['EJScreen_Philadelphia_Tracts_OZONE']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['EJScreen_Philadelphia_Tracts_DSLPM'] !== null ? autolinker.link(String(feature.properties['EJScreen_Philadelphia_Tracts_DSLPM']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['EJScreen_Philadelphia_Tracts_RSEI_AIR'] !== null ? autolinker.link(String(feature.properties['EJScreen_Philadelphia_Tracts_RSEI_AIR']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['EJScreen_Philadelphia_Tracts_PTRAF'] !== null ? autolinker.link(String(feature.properties['EJScreen_Philadelphia_Tracts_PTRAF']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['HISTO_1'] !== null ? autolinker.link(String(feature.properties['HISTO_1']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['HISTO_2'] !== null ? autolinker.link(String(feature.properties['HISTO_2']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['HISTO_3'] !== null ? autolinker.link(String(feature.properties['HISTO_3']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['HISTO_4'] !== null ? autolinker.link(String(feature.properties['HISTO_4']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['HISTO_5'] !== null ? autolinker.link(String(feature.properties['HISTO_5']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['HISTO_6'] !== null ? autolinker.link(String(feature.properties['HISTO_6']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['HISTO_7'] !== null ? autolinker.link(String(feature.properties['HISTO_7']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['pct_tree_canopy'] !== null ? autolinker.link(String(feature.properties['pct_tree_canopy']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Environmental Justice Project - Philadelphia_Census_median_hh_income'] !== null ? autolinker.link(String(feature.properties['Environmental Justice Project - Philadelphia_Census_median_hh_income']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Environmental Justice Project - Philadelphia_Census_poverty_rate'] !== null ? autolinker.link(String(feature.properties['Environmental Justice Project - Philadelphia_Census_poverty_rate']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Environmental Justice Project - Philadelphia_Census_pct_nonwhite'] !== null ? autolinker.link(String(feature.properties['Environmental Justice Project - Philadelphia_Census_pct_nonwhite']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Environmental Justice Project - Philadelphia_Census_pct_limited_english'] !== null ? autolinker.link(String(feature.properties['Environmental Justice Project - Philadelphia_Census_pct_limited_english']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Environmental Justice Project - Philadelphia_Census_Asthma'] !== null ? autolinker.link(String(feature.properties['Environmental Justice Project - Philadelphia_Census_Asthma']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Environmental Justice Project - Philadelphia_Census_COPD'] !== null ? autolinker.link(String(feature.properties['Environmental Justice Project - Philadelphia_Census_COPD']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Environmental Justice Project - Philadelphia_Census_Heart_Disease'] !== null ? autolinker.link(String(feature.properties['Environmental Justice Project - Philadelphia_Census_Heart_Disease']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['EJScreen_Philadelphia_Tracts_PM25_pctile'] !== null ? autolinker.link(String(feature.properties['EJScreen_Philadelphia_Tracts_PM25_pctile']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['EJScreen_Philadelphia_Tracts_OZONE_pctile'] !== null ? autolinker.link(String(feature.properties['EJScreen_Philadelphia_Tracts_OZONE_pctile']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['EJScreen_Philadelphia_Tracts_DSLPM_pctile'] !== null ? autolinker.link(String(feature.properties['EJScreen_Philadelphia_Tracts_DSLPM_pctile']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['EJScreen_Philadelphia_Tracts_RSEI_AIR_pctile'] !== null ? autolinker.link(String(feature.properties['EJScreen_Philadelphia_Tracts_RSEI_AIR_pctile']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['EJScreen_Philadelphia_Tracts_PTRAF_pctile'] !== null ? autolinker.link(String(feature.properties['EJScreen_Philadelphia_Tracts_PTRAF_pctile']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Environmental Justice Project - Philadelphia_Census_Asthma_pctile'] !== null ? autolinker.link(String(feature.properties['Environmental Justice Project - Philadelphia_Census_Asthma_pctile']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Environmental Justice Project - Philadelphia_Census_Heart_Disease_pctile'] !== null ? autolinker.link(String(feature.properties['Environmental Justice Project - Philadelphia_Census_Heart_Disease_pctile']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Environmental Justice Project - Philadelphia_Census_COPD_pctile'] !== null ? autolinker.link(String(feature.properties['Environmental Justice Project - Philadelphia_Census_COPD_pctile']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Environmental Justice Project - Philadelphia_Census_poverty_rate_pctile'] !== null ? autolinker.link(String(feature.properties['Environmental Justice Project - Philadelphia_Census_poverty_rate_pctile']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Environmental Justice Project - Philadelphia_Census_pct_nonwhite_pctile'] !== null ? autolinker.link(String(feature.properties['Environmental Justice Project - Philadelphia_Census_pct_nonwhite_pctile']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Environmental Justice Project - Philadelphia_Census_pct_limited_english_pctile'] !== null ? autolinker.link(String(feature.properties['Environmental Justice Project - Philadelphia_Census_pct_limited_english_pctile']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['income_pctile'] !== null ? autolinker.link(String(feature.properties['income_pctile']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['heat_exposure_proxy'] !== null ? autolinker.link(String(feature.properties['heat_exposure_proxy']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['heat_exposure_pctile'] !== null ? autolinker.link(String(feature.properties['heat_exposure_pctile']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['environmental_burden_index'] !== null ? autolinker.link(String(feature.properties['environmental_burden_index']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['health_vulnerability_index'] !== null ? autolinker.link(String(feature.properties['health_vulnerability_index']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['social_vulnerability_index'] !== null ? autolinker.link(String(feature.properties['social_vulnerability_index']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['climate_exposure_index'] !== null ? autolinker.link(String(feature.properties['climate_exposure_index']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['composite_risk_score'] !== null ? autolinker.link(String(feature.properties['composite_risk_score']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
+            var popupContent = '<table style="width: 100%; border-collapse: collapse;">\
+                    <tr style="border-bottom: 1px solid #ccc;"><th style="text-align: left; padding: 4px;">Census Tract</th><td style="padding: 4px;">' + (feature.properties['NAME'] !== null ? autolinker.link(String(feature.properties['NAME']).replace(/'/g, '\'').toLocaleString()) : '') + '</td></tr>\
+                    <tr style="border-bottom: 1px solid #ccc;"><th style="text-align: left; padding: 4px;">GEOID</th><td style="padding: 4px;">' + (feature.properties['GEOID'] !== null ? autolinker.link(String(feature.properties['GEOID']).replace(/'/g, '\'').toLocaleString()) : '') + '</td></tr>\
+                    <tr style="border-bottom: 2px solid #333; background-color: #f0f0f0;"><th style="text-align: left; padding: 4px;"><strong>Composite Risk Score</strong></th><td style="padding: 4px;"><strong>' + (feature.properties['composite_risk_score'] !== null ? autolinker.link(String(feature.properties['composite_risk_score']).replace(/'/g, '\'').toLocaleString()) : '') + '</strong></td></tr>\
+                    <tr style="border-bottom: 1px solid #ccc;"><th style="text-align: left; padding: 4px;">Environmental Burden Index</th><td style="padding: 4px;">' + (feature.properties['environmental_burden_index'] !== null ? autolinker.link(String(feature.properties['environmental_burden_index']).replace(/'/g, '\'').toLocaleString()) : '') + '</td></tr>\
+                    <tr style="border-bottom: 1px solid #ccc;"><th style="text-align: left; padding: 4px;">Health Vulnerability Index</th><td style="padding: 4px;">' + (feature.properties['health_vulnerability_index'] !== null ? autolinker.link(String(feature.properties['health_vulnerability_index']).replace(/'/g, '\'').toLocaleString()) : '') + '</td></tr>\
+                    <tr style="border-bottom: 1px solid #ccc;"><th style="text-align: left; padding: 4px;">Social Vulnerability Index</th><td style="padding: 4px;">' + (feature.properties['social_vulnerability_index'] !== null ? autolinker.link(String(feature.properties['social_vulnerability_index']).replace(/'/g, '\'').toLocaleString()) : '') + '</td></tr>\
+                    <tr style="border-bottom: 1px solid #ccc;"><th style="text-align: left; padding: 4px;">Climate Exposure Index</th><td style="padding: 4px;">' + (feature.properties['climate_exposure_index'] !== null ? autolinker.link(String(feature.properties['climate_exposure_index']).replace(/'/g, '\'').toLocaleString()) : '') + '</td></tr>\
+                    <tr style="border-bottom: 1px solid #ccc;"><th style="text-align: left; padding: 4px;">Tree Canopy Cover (%)</th><td style="padding: 4px;">' + (feature.properties['pct_tree_canopy'] !== null ? autolinker.link(String(feature.properties['pct_tree_canopy']).replace(/'/g, '\'').toLocaleString()) : '') + '</td></tr>\
+                    <tr style="border-bottom: 1px solid #ccc;"><th style="text-align: left; padding: 4px;">PM2.5 Air Pollution</th><td style="padding: 4px;">' + (feature.properties['EJScreen_Philadelphia_Tracts_PM25'] !== null ? autolinker.link(String(feature.properties['EJScreen_Philadelphia_Tracts_PM25']).replace(/'/g, '\'').toLocaleString()) : '') + '</td></tr>\
+                    <tr style="border-bottom: 1px solid #ccc;"><th style="text-align: left; padding: 4px;">Ozone Level</th><td style="padding: 4px;">' + (feature.properties['EJScreen_Philadelphia_Tracts_OZONE'] !== null ? autolinker.link(String(feature.properties['EJScreen_Philadelphia_Tracts_OZONE']).replace(/'/g, '\'').toLocaleString()) : '') + '</td></tr>\
+                    <tr style="border-bottom: 1px solid #ccc;"><th style="text-align: left; padding: 4px;">Diesel Particulate Matter</th><td style="padding: 4px;">' + (feature.properties['EJScreen_Philadelphia_Tracts_DSLPM'] !== null ? autolinker.link(String(feature.properties['EJScreen_Philadelphia_Tracts_DSLPM']).replace(/'/g, '\'').toLocaleString()) : '') + '</td></tr>\
+                    <tr style="border-bottom: 1px solid #ccc;"><th style="text-align: left; padding: 4px;">Median Household Income</th><td style="padding: 4px;">' + (feature.properties['Environmental Justice Project - Philadelphia_Census_median_hh_income'] !== null ? autolinker.link(String(feature.properties['Environmental Justice Project - Philadelphia_Census_median_hh_income']).replace(/'/g, '\'').toLocaleString()) : '') + '</td></tr>\
+                    <tr style="border-bottom: 1px solid #ccc;"><th style="text-align: left; padding: 4px;">Poverty Rate</th><td style="padding: 4px;">' + (feature.properties['Environmental Justice Project - Philadelphia_Census_poverty_rate'] !== null ? autolinker.link(String(feature.properties['Environmental Justice Project - Philadelphia_Census_poverty_rate']).replace(/'/g, '\'').toLocaleString()) : '') + '</td></tr>\
+                    <tr style="border-bottom: 1px solid #ccc;"><th style="text-align: left; padding: 4px;">People of Color (%)</th><td style="padding: 4px;">' + (feature.properties['Environmental Justice Project - Philadelphia_Census_pct_nonwhite'] !== null ? autolinker.link(String(feature.properties['Environmental Justice Project - Philadelphia_Census_pct_nonwhite']).replace(/'/g, '\'').toLocaleString()) : '') + '</td></tr>\
+                    <tr style="border-bottom: 1px solid #ccc;"><th style="text-align: left; padding: 4px;">Limited English (%)</th><td style="padding: 4px;">' + (feature.properties['Environmental Justice Project - Philadelphia_Census_pct_limited_english'] !== null ? autolinker.link(String(feature.properties['Environmental Justice Project - Philadelphia_Census_pct_limited_english']).replace(/'/g, '\'').toLocaleString()) : '') + '</td></tr>\
+                    <tr style="border-bottom: 1px solid #ccc;"><th style="text-align: left; padding: 4px;">Asthma Rate</th><td style="padding: 4px;">' + (feature.properties['Environmental Justice Project - Philadelphia_Census_Asthma'] !== null ? autolinker.link(String(feature.properties['Environmental Justice Project - Philadelphia_Census_Asthma']).replace(/'/g, '\'').toLocaleString()) : '') + '</td></tr>\
+                    <tr style="border-bottom: 1px solid #ccc;"><th style="text-align: left; padding: 4px;">COPD Rate</th><td style="padding: 4px;">' + (feature.properties['Environmental Justice Project - Philadelphia_Census_COPD'] !== null ? autolinker.link(String(feature.properties['Environmental Justice Project - Philadelphia_Census_COPD']).replace(/'/g, '\'').toLocaleString()) : '') + '</td></tr>\
+                    <tr style="border-bottom: 1px solid #ccc;"><th style="text-align: left; padding: 4px;">Heart Disease Rate</th><td style="padding: 4px;">' + (feature.properties['Environmental Justice Project - Philadelphia_Census_Heart_Disease'] !== null ? autolinker.link(String(feature.properties['Environmental Justice Project - Philadelphia_Census_Heart_Disease']).replace(/'/g, '\'').toLocaleString()) : '') + '</td></tr>\
                 </table>';
             var content = removeEmptyRowsFromPopupContent(popupContent, feature);
 			layer.on('popupopen', function(e) {
@@ -858,7 +546,7 @@
             style: style_Health_VulnerabilityIndex_3_0,
         });
         bounds_group.addLayer(layer_Health_VulnerabilityIndex_3);
-        map.addLayer(layer_Health_VulnerabilityIndex_3);
+        // map.addLayer(layer_Health_VulnerabilityIndex_3);
         function pop_SocialVulnerabilityIndex_4(feature, layer) {
             layer.on({
                 mouseout: function(e) {
@@ -872,130 +560,25 @@
                 },
                 mouseover: highlightFeature,
             });
-            var popupContent = '<table>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['GEOID'] !== null ? autolinker.link(String(feature.properties['GEOID']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['NAME'] !== null ? autolinker.link(String(feature.properties['NAME']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['EJScreen_Philadelphia_Tracts_PM25'] !== null ? autolinker.link(String(feature.properties['EJScreen_Philadelphia_Tracts_PM25']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['EJScreen_Philadelphia_Tracts_OZONE'] !== null ? autolinker.link(String(feature.properties['EJScreen_Philadelphia_Tracts_OZONE']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['EJScreen_Philadelphia_Tracts_DSLPM'] !== null ? autolinker.link(String(feature.properties['EJScreen_Philadelphia_Tracts_DSLPM']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['EJScreen_Philadelphia_Tracts_RSEI_AIR'] !== null ? autolinker.link(String(feature.properties['EJScreen_Philadelphia_Tracts_RSEI_AIR']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['EJScreen_Philadelphia_Tracts_PTRAF'] !== null ? autolinker.link(String(feature.properties['EJScreen_Philadelphia_Tracts_PTRAF']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['HISTO_1'] !== null ? autolinker.link(String(feature.properties['HISTO_1']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['HISTO_2'] !== null ? autolinker.link(String(feature.properties['HISTO_2']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['HISTO_3'] !== null ? autolinker.link(String(feature.properties['HISTO_3']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['HISTO_4'] !== null ? autolinker.link(String(feature.properties['HISTO_4']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['HISTO_5'] !== null ? autolinker.link(String(feature.properties['HISTO_5']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['HISTO_6'] !== null ? autolinker.link(String(feature.properties['HISTO_6']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['HISTO_7'] !== null ? autolinker.link(String(feature.properties['HISTO_7']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['pct_tree_canopy'] !== null ? autolinker.link(String(feature.properties['pct_tree_canopy']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Environmental Justice Project - Philadelphia_Census_median_hh_income'] !== null ? autolinker.link(String(feature.properties['Environmental Justice Project - Philadelphia_Census_median_hh_income']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Environmental Justice Project - Philadelphia_Census_poverty_rate'] !== null ? autolinker.link(String(feature.properties['Environmental Justice Project - Philadelphia_Census_poverty_rate']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Environmental Justice Project - Philadelphia_Census_pct_nonwhite'] !== null ? autolinker.link(String(feature.properties['Environmental Justice Project - Philadelphia_Census_pct_nonwhite']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Environmental Justice Project - Philadelphia_Census_pct_limited_english'] !== null ? autolinker.link(String(feature.properties['Environmental Justice Project - Philadelphia_Census_pct_limited_english']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Environmental Justice Project - Philadelphia_Census_Asthma'] !== null ? autolinker.link(String(feature.properties['Environmental Justice Project - Philadelphia_Census_Asthma']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Environmental Justice Project - Philadelphia_Census_COPD'] !== null ? autolinker.link(String(feature.properties['Environmental Justice Project - Philadelphia_Census_COPD']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Environmental Justice Project - Philadelphia_Census_Heart_Disease'] !== null ? autolinker.link(String(feature.properties['Environmental Justice Project - Philadelphia_Census_Heart_Disease']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['EJScreen_Philadelphia_Tracts_PM25_pctile'] !== null ? autolinker.link(String(feature.properties['EJScreen_Philadelphia_Tracts_PM25_pctile']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['EJScreen_Philadelphia_Tracts_OZONE_pctile'] !== null ? autolinker.link(String(feature.properties['EJScreen_Philadelphia_Tracts_OZONE_pctile']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['EJScreen_Philadelphia_Tracts_DSLPM_pctile'] !== null ? autolinker.link(String(feature.properties['EJScreen_Philadelphia_Tracts_DSLPM_pctile']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['EJScreen_Philadelphia_Tracts_RSEI_AIR_pctile'] !== null ? autolinker.link(String(feature.properties['EJScreen_Philadelphia_Tracts_RSEI_AIR_pctile']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['EJScreen_Philadelphia_Tracts_PTRAF_pctile'] !== null ? autolinker.link(String(feature.properties['EJScreen_Philadelphia_Tracts_PTRAF_pctile']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Environmental Justice Project - Philadelphia_Census_Asthma_pctile'] !== null ? autolinker.link(String(feature.properties['Environmental Justice Project - Philadelphia_Census_Asthma_pctile']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Environmental Justice Project - Philadelphia_Census_Heart_Disease_pctile'] !== null ? autolinker.link(String(feature.properties['Environmental Justice Project - Philadelphia_Census_Heart_Disease_pctile']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Environmental Justice Project - Philadelphia_Census_COPD_pctile'] !== null ? autolinker.link(String(feature.properties['Environmental Justice Project - Philadelphia_Census_COPD_pctile']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Environmental Justice Project - Philadelphia_Census_poverty_rate_pctile'] !== null ? autolinker.link(String(feature.properties['Environmental Justice Project - Philadelphia_Census_poverty_rate_pctile']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Environmental Justice Project - Philadelphia_Census_pct_nonwhite_pctile'] !== null ? autolinker.link(String(feature.properties['Environmental Justice Project - Philadelphia_Census_pct_nonwhite_pctile']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Environmental Justice Project - Philadelphia_Census_pct_limited_english_pctile'] !== null ? autolinker.link(String(feature.properties['Environmental Justice Project - Philadelphia_Census_pct_limited_english_pctile']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['income_pctile'] !== null ? autolinker.link(String(feature.properties['income_pctile']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['heat_exposure_proxy'] !== null ? autolinker.link(String(feature.properties['heat_exposure_proxy']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['heat_exposure_pctile'] !== null ? autolinker.link(String(feature.properties['heat_exposure_pctile']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['environmental_burden_index'] !== null ? autolinker.link(String(feature.properties['environmental_burden_index']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['health_vulnerability_index'] !== null ? autolinker.link(String(feature.properties['health_vulnerability_index']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['social_vulnerability_index'] !== null ? autolinker.link(String(feature.properties['social_vulnerability_index']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['climate_exposure_index'] !== null ? autolinker.link(String(feature.properties['climate_exposure_index']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['composite_risk_score'] !== null ? autolinker.link(String(feature.properties['composite_risk_score']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
+            var popupContent = '<table style="width: 100%; border-collapse: collapse;">\
+                    <tr style="border-bottom: 1px solid #ccc;"><th style="text-align: left; padding: 4px;">Census Tract</th><td style="padding: 4px;">' + (feature.properties['NAME'] !== null ? autolinker.link(String(feature.properties['NAME']).replace(/'/g, '\'').toLocaleString()) : '') + '</td></tr>\
+                    <tr style="border-bottom: 1px solid #ccc;"><th style="text-align: left; padding: 4px;">GEOID</th><td style="padding: 4px;">' + (feature.properties['GEOID'] !== null ? autolinker.link(String(feature.properties['GEOID']).replace(/'/g, '\'').toLocaleString()) : '') + '</td></tr>\
+                    <tr style="border-bottom: 2px solid #333; background-color: #f0f0f0;"><th style="text-align: left; padding: 4px;"><strong>Composite Risk Score</strong></th><td style="padding: 4px;"><strong>' + (feature.properties['composite_risk_score'] !== null ? autolinker.link(String(feature.properties['composite_risk_score']).replace(/'/g, '\'').toLocaleString()) : '') + '</strong></td></tr>\
+                    <tr style="border-bottom: 1px solid #ccc;"><th style="text-align: left; padding: 4px;">Environmental Burden Index</th><td style="padding: 4px;">' + (feature.properties['environmental_burden_index'] !== null ? autolinker.link(String(feature.properties['environmental_burden_index']).replace(/'/g, '\'').toLocaleString()) : '') + '</td></tr>\
+                    <tr style="border-bottom: 1px solid #ccc;"><th style="text-align: left; padding: 4px;">Health Vulnerability Index</th><td style="padding: 4px;">' + (feature.properties['health_vulnerability_index'] !== null ? autolinker.link(String(feature.properties['health_vulnerability_index']).replace(/'/g, '\'').toLocaleString()) : '') + '</td></tr>\
+                    <tr style="border-bottom: 1px solid #ccc;"><th style="text-align: left; padding: 4px;">Social Vulnerability Index</th><td style="padding: 4px;">' + (feature.properties['social_vulnerability_index'] !== null ? autolinker.link(String(feature.properties['social_vulnerability_index']).replace(/'/g, '\'').toLocaleString()) : '') + '</td></tr>\
+                    <tr style="border-bottom: 1px solid #ccc;"><th style="text-align: left; padding: 4px;">Climate Exposure Index</th><td style="padding: 4px;">' + (feature.properties['climate_exposure_index'] !== null ? autolinker.link(String(feature.properties['climate_exposure_index']).replace(/'/g, '\'').toLocaleString()) : '') + '</td></tr>\
+                    <tr style="border-bottom: 1px solid #ccc;"><th style="text-align: left; padding: 4px;">Tree Canopy Cover (%)</th><td style="padding: 4px;">' + (feature.properties['pct_tree_canopy'] !== null ? autolinker.link(String(feature.properties['pct_tree_canopy']).replace(/'/g, '\'').toLocaleString()) : '') + '</td></tr>\
+                    <tr style="border-bottom: 1px solid #ccc;"><th style="text-align: left; padding: 4px;">PM2.5 Air Pollution</th><td style="padding: 4px;">' + (feature.properties['EJScreen_Philadelphia_Tracts_PM25'] !== null ? autolinker.link(String(feature.properties['EJScreen_Philadelphia_Tracts_PM25']).replace(/'/g, '\'').toLocaleString()) : '') + '</td></tr>\
+                    <tr style="border-bottom: 1px solid #ccc;"><th style="text-align: left; padding: 4px;">Ozone Level</th><td style="padding: 4px;">' + (feature.properties['EJScreen_Philadelphia_Tracts_OZONE'] !== null ? autolinker.link(String(feature.properties['EJScreen_Philadelphia_Tracts_OZONE']).replace(/'/g, '\'').toLocaleString()) : '') + '</td></tr>\
+                    <tr style="border-bottom: 1px solid #ccc;"><th style="text-align: left; padding: 4px;">Diesel Particulate Matter</th><td style="padding: 4px;">' + (feature.properties['EJScreen_Philadelphia_Tracts_DSLPM'] !== null ? autolinker.link(String(feature.properties['EJScreen_Philadelphia_Tracts_DSLPM']).replace(/'/g, '\'').toLocaleString()) : '') + '</td></tr>\
+                    <tr style="border-bottom: 1px solid #ccc;"><th style="text-align: left; padding: 4px;">Median Household Income</th><td style="padding: 4px;">' + (feature.properties['Environmental Justice Project - Philadelphia_Census_median_hh_income'] !== null ? autolinker.link(String(feature.properties['Environmental Justice Project - Philadelphia_Census_median_hh_income']).replace(/'/g, '\'').toLocaleString()) : '') + '</td></tr>\
+                    <tr style="border-bottom: 1px solid #ccc;"><th style="text-align: left; padding: 4px;">Poverty Rate</th><td style="padding: 4px;">' + (feature.properties['Environmental Justice Project - Philadelphia_Census_poverty_rate'] !== null ? autolinker.link(String(feature.properties['Environmental Justice Project - Philadelphia_Census_poverty_rate']).replace(/'/g, '\'').toLocaleString()) : '') + '</td></tr>\
+                    <tr style="border-bottom: 1px solid #ccc;"><th style="text-align: left; padding: 4px;">People of Color (%)</th><td style="padding: 4px;">' + (feature.properties['Environmental Justice Project - Philadelphia_Census_pct_nonwhite'] !== null ? autolinker.link(String(feature.properties['Environmental Justice Project - Philadelphia_Census_pct_nonwhite']).replace(/'/g, '\'').toLocaleString()) : '') + '</td></tr>\
+                    <tr style="border-bottom: 1px solid #ccc;"><th style="text-align: left; padding: 4px;">Limited English (%)</th><td style="padding: 4px;">' + (feature.properties['Environmental Justice Project - Philadelphia_Census_pct_limited_english'] !== null ? autolinker.link(String(feature.properties['Environmental Justice Project - Philadelphia_Census_pct_limited_english']).replace(/'/g, '\'').toLocaleString()) : '') + '</td></tr>\
+                    <tr style="border-bottom: 1px solid #ccc;"><th style="text-align: left; padding: 4px;">Asthma Rate</th><td style="padding: 4px;">' + (feature.properties['Environmental Justice Project - Philadelphia_Census_Asthma'] !== null ? autolinker.link(String(feature.properties['Environmental Justice Project - Philadelphia_Census_Asthma']).replace(/'/g, '\'').toLocaleString()) : '') + '</td></tr>\
+                    <tr style="border-bottom: 1px solid #ccc;"><th style="text-align: left; padding: 4px;">COPD Rate</th><td style="padding: 4px;">' + (feature.properties['Environmental Justice Project - Philadelphia_Census_COPD'] !== null ? autolinker.link(String(feature.properties['Environmental Justice Project - Philadelphia_Census_COPD']).replace(/'/g, '\'').toLocaleString()) : '') + '</td></tr>\
+                    <tr style="border-bottom: 1px solid #ccc;"><th style="text-align: left; padding: 4px;">Heart Disease Rate</th><td style="padding: 4px;">' + (feature.properties['Environmental Justice Project - Philadelphia_Census_Heart_Disease'] !== null ? autolinker.link(String(feature.properties['Environmental Justice Project - Philadelphia_Census_Heart_Disease']).replace(/'/g, '\'').toLocaleString()) : '') + '</td></tr>\
                 </table>';
             var content = removeEmptyRowsFromPopupContent(popupContent, feature);
 			layer.on('popupopen', function(e) {
@@ -1094,7 +677,7 @@
             style: style_SocialVulnerabilityIndex_4_0,
         });
         bounds_group.addLayer(layer_SocialVulnerabilityIndex_4);
-        map.addLayer(layer_SocialVulnerabilityIndex_4);
+        // map.addLayer(layer_SocialVulnerabilityIndex_4);
         function pop_ClimateExposureIndex_5(feature, layer) {
             layer.on({
                 mouseout: function(e) {
@@ -1108,130 +691,25 @@
                 },
                 mouseover: highlightFeature,
             });
-            var popupContent = '<table>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['GEOID'] !== null ? autolinker.link(String(feature.properties['GEOID']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['NAME'] !== null ? autolinker.link(String(feature.properties['NAME']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['EJScreen_Philadelphia_Tracts_PM25'] !== null ? autolinker.link(String(feature.properties['EJScreen_Philadelphia_Tracts_PM25']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['EJScreen_Philadelphia_Tracts_OZONE'] !== null ? autolinker.link(String(feature.properties['EJScreen_Philadelphia_Tracts_OZONE']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['EJScreen_Philadelphia_Tracts_DSLPM'] !== null ? autolinker.link(String(feature.properties['EJScreen_Philadelphia_Tracts_DSLPM']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['EJScreen_Philadelphia_Tracts_RSEI_AIR'] !== null ? autolinker.link(String(feature.properties['EJScreen_Philadelphia_Tracts_RSEI_AIR']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['EJScreen_Philadelphia_Tracts_PTRAF'] !== null ? autolinker.link(String(feature.properties['EJScreen_Philadelphia_Tracts_PTRAF']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['HISTO_1'] !== null ? autolinker.link(String(feature.properties['HISTO_1']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['HISTO_2'] !== null ? autolinker.link(String(feature.properties['HISTO_2']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['HISTO_3'] !== null ? autolinker.link(String(feature.properties['HISTO_3']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['HISTO_4'] !== null ? autolinker.link(String(feature.properties['HISTO_4']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['HISTO_5'] !== null ? autolinker.link(String(feature.properties['HISTO_5']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['HISTO_6'] !== null ? autolinker.link(String(feature.properties['HISTO_6']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['HISTO_7'] !== null ? autolinker.link(String(feature.properties['HISTO_7']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['pct_tree_canopy'] !== null ? autolinker.link(String(feature.properties['pct_tree_canopy']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Environmental Justice Project - Philadelphia_Census_median_hh_income'] !== null ? autolinker.link(String(feature.properties['Environmental Justice Project - Philadelphia_Census_median_hh_income']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Environmental Justice Project - Philadelphia_Census_poverty_rate'] !== null ? autolinker.link(String(feature.properties['Environmental Justice Project - Philadelphia_Census_poverty_rate']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Environmental Justice Project - Philadelphia_Census_pct_nonwhite'] !== null ? autolinker.link(String(feature.properties['Environmental Justice Project - Philadelphia_Census_pct_nonwhite']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Environmental Justice Project - Philadelphia_Census_pct_limited_english'] !== null ? autolinker.link(String(feature.properties['Environmental Justice Project - Philadelphia_Census_pct_limited_english']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Environmental Justice Project - Philadelphia_Census_Asthma'] !== null ? autolinker.link(String(feature.properties['Environmental Justice Project - Philadelphia_Census_Asthma']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Environmental Justice Project - Philadelphia_Census_COPD'] !== null ? autolinker.link(String(feature.properties['Environmental Justice Project - Philadelphia_Census_COPD']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Environmental Justice Project - Philadelphia_Census_Heart_Disease'] !== null ? autolinker.link(String(feature.properties['Environmental Justice Project - Philadelphia_Census_Heart_Disease']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['EJScreen_Philadelphia_Tracts_PM25_pctile'] !== null ? autolinker.link(String(feature.properties['EJScreen_Philadelphia_Tracts_PM25_pctile']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['EJScreen_Philadelphia_Tracts_OZONE_pctile'] !== null ? autolinker.link(String(feature.properties['EJScreen_Philadelphia_Tracts_OZONE_pctile']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['EJScreen_Philadelphia_Tracts_DSLPM_pctile'] !== null ? autolinker.link(String(feature.properties['EJScreen_Philadelphia_Tracts_DSLPM_pctile']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['EJScreen_Philadelphia_Tracts_RSEI_AIR_pctile'] !== null ? autolinker.link(String(feature.properties['EJScreen_Philadelphia_Tracts_RSEI_AIR_pctile']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['EJScreen_Philadelphia_Tracts_PTRAF_pctile'] !== null ? autolinker.link(String(feature.properties['EJScreen_Philadelphia_Tracts_PTRAF_pctile']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Environmental Justice Project - Philadelphia_Census_Asthma_pctile'] !== null ? autolinker.link(String(feature.properties['Environmental Justice Project - Philadelphia_Census_Asthma_pctile']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Environmental Justice Project - Philadelphia_Census_Heart_Disease_pctile'] !== null ? autolinker.link(String(feature.properties['Environmental Justice Project - Philadelphia_Census_Heart_Disease_pctile']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Environmental Justice Project - Philadelphia_Census_COPD_pctile'] !== null ? autolinker.link(String(feature.properties['Environmental Justice Project - Philadelphia_Census_COPD_pctile']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Environmental Justice Project - Philadelphia_Census_poverty_rate_pctile'] !== null ? autolinker.link(String(feature.properties['Environmental Justice Project - Philadelphia_Census_poverty_rate_pctile']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Environmental Justice Project - Philadelphia_Census_pct_nonwhite_pctile'] !== null ? autolinker.link(String(feature.properties['Environmental Justice Project - Philadelphia_Census_pct_nonwhite_pctile']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Environmental Justice Project - Philadelphia_Census_pct_limited_english_pctile'] !== null ? autolinker.link(String(feature.properties['Environmental Justice Project - Philadelphia_Census_pct_limited_english_pctile']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['income_pctile'] !== null ? autolinker.link(String(feature.properties['income_pctile']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['heat_exposure_proxy'] !== null ? autolinker.link(String(feature.properties['heat_exposure_proxy']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['heat_exposure_pctile'] !== null ? autolinker.link(String(feature.properties['heat_exposure_pctile']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['environmental_burden_index'] !== null ? autolinker.link(String(feature.properties['environmental_burden_index']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['health_vulnerability_index'] !== null ? autolinker.link(String(feature.properties['health_vulnerability_index']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['social_vulnerability_index'] !== null ? autolinker.link(String(feature.properties['social_vulnerability_index']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['climate_exposure_index'] !== null ? autolinker.link(String(feature.properties['climate_exposure_index']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['composite_risk_score'] !== null ? autolinker.link(String(feature.properties['composite_risk_score']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
+            var popupContent = '<table style="width: 100%; border-collapse: collapse;">\
+                    <tr style="border-bottom: 1px solid #ccc;"><th style="text-align: left; padding: 4px;">Census Tract</th><td style="padding: 4px;">' + (feature.properties['NAME'] !== null ? autolinker.link(String(feature.properties['NAME']).replace(/'/g, '\'').toLocaleString()) : '') + '</td></tr>\
+                    <tr style="border-bottom: 1px solid #ccc;"><th style="text-align: left; padding: 4px;">GEOID</th><td style="padding: 4px;">' + (feature.properties['GEOID'] !== null ? autolinker.link(String(feature.properties['GEOID']).replace(/'/g, '\'').toLocaleString()) : '') + '</td></tr>\
+                    <tr style="border-bottom: 2px solid #333; background-color: #f0f0f0;"><th style="text-align: left; padding: 4px;"><strong>Composite Risk Score</strong></th><td style="padding: 4px;"><strong>' + (feature.properties['composite_risk_score'] !== null ? autolinker.link(String(feature.properties['composite_risk_score']).replace(/'/g, '\'').toLocaleString()) : '') + '</strong></td></tr>\
+                    <tr style="border-bottom: 1px solid #ccc;"><th style="text-align: left; padding: 4px;">Environmental Burden Index</th><td style="padding: 4px;">' + (feature.properties['environmental_burden_index'] !== null ? autolinker.link(String(feature.properties['environmental_burden_index']).replace(/'/g, '\'').toLocaleString()) : '') + '</td></tr>\
+                    <tr style="border-bottom: 1px solid #ccc;"><th style="text-align: left; padding: 4px;">Health Vulnerability Index</th><td style="padding: 4px;">' + (feature.properties['health_vulnerability_index'] !== null ? autolinker.link(String(feature.properties['health_vulnerability_index']).replace(/'/g, '\'').toLocaleString()) : '') + '</td></tr>\
+                    <tr style="border-bottom: 1px solid #ccc;"><th style="text-align: left; padding: 4px;">Social Vulnerability Index</th><td style="padding: 4px;">' + (feature.properties['social_vulnerability_index'] !== null ? autolinker.link(String(feature.properties['social_vulnerability_index']).replace(/'/g, '\'').toLocaleString()) : '') + '</td></tr>\
+                    <tr style="border-bottom: 1px solid #ccc;"><th style="text-align: left; padding: 4px;">Climate Exposure Index</th><td style="padding: 4px;">' + (feature.properties['climate_exposure_index'] !== null ? autolinker.link(String(feature.properties['climate_exposure_index']).replace(/'/g, '\'').toLocaleString()) : '') + '</td></tr>\
+                    <tr style="border-bottom: 1px solid #ccc;"><th style="text-align: left; padding: 4px;">Tree Canopy Cover (%)</th><td style="padding: 4px;">' + (feature.properties['pct_tree_canopy'] !== null ? autolinker.link(String(feature.properties['pct_tree_canopy']).replace(/'/g, '\'').toLocaleString()) : '') + '</td></tr>\
+                    <tr style="border-bottom: 1px solid #ccc;"><th style="text-align: left; padding: 4px;">PM2.5 Air Pollution</th><td style="padding: 4px;">' + (feature.properties['EJScreen_Philadelphia_Tracts_PM25'] !== null ? autolinker.link(String(feature.properties['EJScreen_Philadelphia_Tracts_PM25']).replace(/'/g, '\'').toLocaleString()) : '') + '</td></tr>\
+                    <tr style="border-bottom: 1px solid #ccc;"><th style="text-align: left; padding: 4px;">Ozone Level</th><td style="padding: 4px;">' + (feature.properties['EJScreen_Philadelphia_Tracts_OZONE'] !== null ? autolinker.link(String(feature.properties['EJScreen_Philadelphia_Tracts_OZONE']).replace(/'/g, '\'').toLocaleString()) : '') + '</td></tr>\
+                    <tr style="border-bottom: 1px solid #ccc;"><th style="text-align: left; padding: 4px;">Diesel Particulate Matter</th><td style="padding: 4px;">' + (feature.properties['EJScreen_Philadelphia_Tracts_DSLPM'] !== null ? autolinker.link(String(feature.properties['EJScreen_Philadelphia_Tracts_DSLPM']).replace(/'/g, '\'').toLocaleString()) : '') + '</td></tr>\
+                    <tr style="border-bottom: 1px solid #ccc;"><th style="text-align: left; padding: 4px;">Median Household Income</th><td style="padding: 4px;">' + (feature.properties['Environmental Justice Project - Philadelphia_Census_median_hh_income'] !== null ? autolinker.link(String(feature.properties['Environmental Justice Project - Philadelphia_Census_median_hh_income']).replace(/'/g, '\'').toLocaleString()) : '') + '</td></tr>\
+                    <tr style="border-bottom: 1px solid #ccc;"><th style="text-align: left; padding: 4px;">Poverty Rate</th><td style="padding: 4px;">' + (feature.properties['Environmental Justice Project - Philadelphia_Census_poverty_rate'] !== null ? autolinker.link(String(feature.properties['Environmental Justice Project - Philadelphia_Census_poverty_rate']).replace(/'/g, '\'').toLocaleString()) : '') + '</td></tr>\
+                    <tr style="border-bottom: 1px solid #ccc;"><th style="text-align: left; padding: 4px;">People of Color (%)</th><td style="padding: 4px;">' + (feature.properties['Environmental Justice Project - Philadelphia_Census_pct_nonwhite'] !== null ? autolinker.link(String(feature.properties['Environmental Justice Project - Philadelphia_Census_pct_nonwhite']).replace(/'/g, '\'').toLocaleString()) : '') + '</td></tr>\
+                    <tr style="border-bottom: 1px solid #ccc;"><th style="text-align: left; padding: 4px;">Limited English (%)</th><td style="padding: 4px;">' + (feature.properties['Environmental Justice Project - Philadelphia_Census_pct_limited_english'] !== null ? autolinker.link(String(feature.properties['Environmental Justice Project - Philadelphia_Census_pct_limited_english']).replace(/'/g, '\'').toLocaleString()) : '') + '</td></tr>\
+                    <tr style="border-bottom: 1px solid #ccc;"><th style="text-align: left; padding: 4px;">Asthma Rate</th><td style="padding: 4px;">' + (feature.properties['Environmental Justice Project - Philadelphia_Census_Asthma'] !== null ? autolinker.link(String(feature.properties['Environmental Justice Project - Philadelphia_Census_Asthma']).replace(/'/g, '\'').toLocaleString()) : '') + '</td></tr>\
+                    <tr style="border-bottom: 1px solid #ccc;"><th style="text-align: left; padding: 4px;">COPD Rate</th><td style="padding: 4px;">' + (feature.properties['Environmental Justice Project - Philadelphia_Census_COPD'] !== null ? autolinker.link(String(feature.properties['Environmental Justice Project - Philadelphia_Census_COPD']).replace(/'/g, '\'').toLocaleString()) : '') + '</td></tr>\
+                    <tr style="border-bottom: 1px solid #ccc;"><th style="text-align: left; padding: 4px;">Heart Disease Rate</th><td style="padding: 4px;">' + (feature.properties['Environmental Justice Project - Philadelphia_Census_Heart_Disease'] !== null ? autolinker.link(String(feature.properties['Environmental Justice Project - Philadelphia_Census_Heart_Disease']).replace(/'/g, '\'').toLocaleString()) : '') + '</td></tr>\
                 </table>';
             var content = removeEmptyRowsFromPopupContent(popupContent, feature);
 			layer.on('popupopen', function(e) {
@@ -1330,7 +808,7 @@
             style: style_ClimateExposureIndex_5_0,
         });
         bounds_group.addLayer(layer_ClimateExposureIndex_5);
-        map.addLayer(layer_ClimateExposureIndex_5);
+        // map.addLayer(layer_ClimateExposureIndex_5);
         const url = {"Nominatim OSM": "https://nominatim.openstreetmap.org/search?format=geojson&addressdetails=1&",
         "France BAN": "https://api-adresse.data.gouv.fr/search/?"}
         var photonControl = L.control.photon({
@@ -1385,11 +863,11 @@
             }
         });
         var overlaysTree = [
-            {label: 'Climate Exposure Index<br /><table><tr><td style="text-align: center;"><img src="legend/ClimateExposureIndex_5_024512019610.png" /></td><td>0.2451 - 20.1961</td></tr><tr><td style="text-align: center;"><img src="legend/ClimateExposureIndex_5_2019614014711.png" /></td><td>20.1961 - 40.1471</td></tr><tr><td style="text-align: center;"><img src="legend/ClimateExposureIndex_5_4014716009802.png" /></td><td>40.1471 - 60.0980</td></tr><tr><td style="text-align: center;"><img src="legend/ClimateExposureIndex_5_6009808004903.png" /></td><td>60.0980 - 80.0490</td></tr><tr><td style="text-align: center;"><img src="legend/ClimateExposureIndex_5_80049010000004.png" /></td><td>80.0490 - 100.0000</td></tr></table>', layer: layer_ClimateExposureIndex_5},
-            {label: 'Social Vulnerability Index<br /><table><tr><td style="text-align: center;"><img src="legend/SocialVulnerabilityIndex_4_000002433170.png" /></td><td>0.0000 - 24.3317</td></tr><tr><td style="text-align: center;"><img src="legend/SocialVulnerabilityIndex_4_2433174311801.png" /></td><td>24.3317 - 43.1180</td></tr><tr><td style="text-align: center;"><img src="legend/SocialVulnerabilityIndex_4_4311805843002.png" /></td><td>43.1180 - 58.4300</td></tr><tr><td style="text-align: center;"><img src="legend/SocialVulnerabilityIndex_4_5843007036493.png" /></td><td>58.4300 - 70.3649</td></tr><tr><td style="text-align: center;"><img src="legend/SocialVulnerabilityIndex_4_7036499786704.png" /></td><td>70.3649 - 97.8670</td></tr></table>', layer: layer_SocialVulnerabilityIndex_4},
-            {label: 'Health_Vulnerability Index<br /><table><tr><td style="text-align: center;"><img src="legend/Health_VulnerabilityIndex_3_000001791880.png" /></td><td>0.0000 - 17.9188</td></tr><tr><td style="text-align: center;"><img src="legend/Health_VulnerabilityIndex_3_1791883929191.png" /></td><td>17.9188 - 39.2919</td></tr><tr><td style="text-align: center;"><img src="legend/Health_VulnerabilityIndex_3_3929195590672.png" /></td><td>39.2919 - 55.9067</td></tr><tr><td style="text-align: center;"><img src="legend/Health_VulnerabilityIndex_3_5590677546633.png" /></td><td>55.9067 - 75.4663</td></tr><tr><td style="text-align: center;"><img src="legend/Health_VulnerabilityIndex_3_7546639831614.png" /></td><td>75.4663 - 98.3161</td></tr></table>', layer: layer_Health_VulnerabilityIndex_3},
-            {label: 'Environmental Burden Index<br /><table><tr><td style="text-align: center;"><img src="legend/EnvironmentalBurdenIndex_2_212424134230.png" /></td><td>2.1242 - 41.3423</td></tr><tr><td style="text-align: center;"><img src="legend/EnvironmentalBurdenIndex_2_4134234732301.png" /></td><td>41.3423 - 47.3230</td></tr><tr><td style="text-align: center;"><img src="legend/EnvironmentalBurdenIndex_2_4732305260052.png" /></td><td>47.3230 - 52.6005</td></tr><tr><td style="text-align: center;"><img src="legend/EnvironmentalBurdenIndex_2_5260056045013.png" /></td><td>52.6005 - 60.4501</td></tr><tr><td style="text-align: center;"><img src="legend/EnvironmentalBurdenIndex_2_6045017590984.png" /></td><td>60.4501 - 75.9098</td></tr></table>', layer: layer_EnvironmentalBurdenIndex_2},
-            {label: 'EJ & Climate Risk Index<br /><table><tr><td style="text-align: center;"><img src="legend/EJClimateRiskIndex_1_1860733634930.png" /></td><td>18.6073 - 36.3493</td></tr><tr><td style="text-align: center;"><img src="legend/EJClimateRiskIndex_1_3634934637381.png" /></td><td>36.3493 - 46.3738</td></tr><tr><td style="text-align: center;"><img src="legend/EJClimateRiskIndex_1_4637385495592.png" /></td><td>46.3738 - 54.9559</td></tr><tr><td style="text-align: center;"><img src="legend/EJClimateRiskIndex_1_5495596358593.png" /></td><td>54.9559 - 63.5859</td></tr><tr><td style="text-align: center;"><img src="legend/EJClimateRiskIndex_1_6358598123814.png" /></td><td>63.5859 - 81.2381</td></tr></table>', layer: layer_EJClimateRiskIndex_1},
+            {label: 'Climate Exposure Index<br /><table><tr><td style="text-align: center;"><img src="legend/ClimateExposureIndex_5_024512019610.png" /></td><td>0 - 20 (Very Low)</td></tr><tr><td style="text-align: center;"><img src="legend/ClimateExposureIndex_5_2019614014711.png" /></td><td>20 - 40 (Low)</td></tr><tr><td style="text-align: center;"><img src="legend/ClimateExposureIndex_5_4014716009802.png" /></td><td>40 - 60 (Moderate)</td></tr><tr><td style="text-align: center;"><img src="legend/ClimateExposureIndex_5_6009808004903.png" /></td><td>60 - 80 (High)</td></tr><tr><td style="text-align: center;"><img src="legend/ClimateExposureIndex_5_80049010000004.png" /></td><td>80 - 100 (Very High)</td></tr></table>', layer: layer_ClimateExposureIndex_5, radioGroup: 'indices'},
+            {label: 'Social Vulnerability Index<br /><table><tr><td style="text-align: center;"><img src="legend/SocialVulnerabilityIndex_4_000002433170.png" /></td><td>0 - 24 (Very Low)</td></tr><tr><td style="text-align: center;"><img src="legend/SocialVulnerabilityIndex_4_2433174311801.png" /></td><td>24 - 43 (Low)</td></tr><tr><td style="text-align: center;"><img src="legend/SocialVulnerabilityIndex_4_4311805843002.png" /></td><td>43 - 58 (Moderate)</td></tr><tr><td style="text-align: center;"><img src="legend/SocialVulnerabilityIndex_4_5843007036493.png" /></td><td>58 - 70 (High)</td></tr><tr><td style="text-align: center;"><img src="legend/SocialVulnerabilityIndex_4_7036499786704.png" /></td><td>70 - 98 (Very High)</td></tr></table>', layer: layer_SocialVulnerabilityIndex_4, radioGroup: 'indices'},
+            {label: 'Health Vulnerability Index<br /><table><tr><td style="text-align: center;"><img src="legend/Health_VulnerabilityIndex_3_000001791880.png" /></td><td>0 - 18 (Very Low)</td></tr><tr><td style="text-align: center;"><img src="legend/Health_VulnerabilityIndex_3_1791883929191.png" /></td><td>18 - 39 (Low)</td></tr><tr><td style="text-align: center;"><img src="legend/Health_VulnerabilityIndex_3_3929195590672.png" /></td><td>39 - 56 (Moderate)</td></tr><tr><td style="text-align: center;"><img src="legend/Health_VulnerabilityIndex_3_5590677546633.png" /></td><td>56 - 75 (High)</td></tr><tr><td style="text-align: center;"><img src="legend/Health_VulnerabilityIndex_3_7546639831614.png" /></td><td>75 - 98 (Very High)</td></tr></table>', layer: layer_Health_VulnerabilityIndex_3, radioGroup: 'indices'},
+            {label: 'Environmental Burden Index<br /><table><tr><td style="text-align: center;"><img src="legend/EnvironmentalBurdenIndex_2_212424134230.png" /></td><td>2 - 41 (Very Low)</td></tr><tr><td style="text-align: center;"><img src="legend/EnvironmentalBurdenIndex_2_4134234732301.png" /></td><td>41 - 47 (Low)</td></tr><tr><td style="text-align: center;"><img src="legend/EnvironmentalBurdenIndex_2_4732305260052.png" /></td><td>47 - 53 (Moderate)</td></tr><tr><td style="text-align: center;"><img src="legend/EnvironmentalBurdenIndex_2_5260056045013.png" /></td><td>53 - 60 (High)</td></tr><tr><td style="text-align: center;"><img src="legend/EnvironmentalBurdenIndex_2_6045017590984.png" /></td><td>60 - 76 (Very High)</td></tr></table>', layer: layer_EnvironmentalBurdenIndex_2, radioGroup: 'indices'},
+            {label: 'EJ & Climate Risk Index<br /><table><tr><td style="text-align: center;"><img src="legend/EJClimateRiskIndex_1_1860733634930.png" /></td><td>19 - 36 (Very Low)</td></tr><tr><td style="text-align: center;"><img src="legend/EJClimateRiskIndex_1_3634934637381.png" /></td><td>36 - 46 (Low)</td></tr><tr><td style="text-align: center;"><img src="legend/EJClimateRiskIndex_1_4637385495592.png" /></td><td>46 - 55 (Moderate)</td></tr><tr><td style="text-align: center;"><img src="legend/EJClimateRiskIndex_1_5495596358593.png" /></td><td>55 - 64 (High)</td></tr><tr><td style="text-align: center;"><img src="legend/EJClimateRiskIndex_1_6358598123814.png" /></td><td>64 - 81 (Very High)</td></tr></table>', layer: layer_EJClimateRiskIndex_1, radioGroup: 'indices'},
             {label: "OSM Standard", layer: layer_OSMStandard_0},]
         var lay = L.control.layers.tree(null, overlaysTree,{
             //namedToggle: true,

@@ -13,11 +13,11 @@
         <link rel="stylesheet" href="css/leaflet.photon.css">
         <style>
         #map {
-            width: 100%;
-            height: 100vh;
+            width: 2406px;
+            height: 887px;
         }
         </style>
-        <title></title>
+        <title>Philadelphia EJ & Climate Risk Index</title>
     </head>
     <body>
         <div id="map">
@@ -42,17 +42,7 @@
         var highlightLayer;
         function highlightFeature(e) {
             highlightLayer = e.target;
-
-            if (e.target.feature.geometry.type === 'LineString' || e.target.feature.geometry.type === 'MultiLineString') {
-              highlightLayer.setStyle({
-                color: 'rgba(255, 255, 0, 1.00)',
-              });
-            } else {
-              highlightLayer.setStyle({
-                fillColor: 'rgba(255, 255, 0, 1.00)',
-                fillOpacity: 1
-              });
-            }
+            highlightLayer.openPopup();
         }
         var map = L.map('map', {
             zoomControl:false, maxZoom:28, minZoom:1
@@ -132,6 +122,16 @@
                 popup._contentNode.classList.remove('media');
             }
         }
+        var title = new L.Control({'position':'topleft'});
+        title.onAdd = function (map) {
+            this._div = L.DomUtil.create('div', 'info');
+            this.update();
+            return this._div;
+        };
+        title.update = function () {
+            this._div.innerHTML = '<h2>Philadelphia EJ & Climate Risk Index</h2>';
+        };
+        title.addTo(map);
         var zoomControl = L.control.zoom({
             position: 'topleft'
         }).addTo(map);
@@ -154,10 +154,12 @@
         function pop_EJClimateRiskIndex_1(feature, layer) {
             layer.on({
                 mouseout: function(e) {
-                    for (var i in e.target._eventParents) {
-                        if (typeof e.target._eventParents[i].resetStyle === 'function') {
-                            e.target._eventParents[i].resetStyle(e.target);
-                        }
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
                     }
                 },
                 mouseover: highlightFeature,
@@ -388,10 +390,12 @@
         function pop_EnvironmentalBurdenIndex_2(feature, layer) {
             layer.on({
                 mouseout: function(e) {
-                    for (var i in e.target._eventParents) {
-                        if (typeof e.target._eventParents[i].resetStyle === 'function') {
-                            e.target._eventParents[i].resetStyle(e.target);
-                        }
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
                     }
                 },
                 mouseover: highlightFeature,
@@ -622,10 +626,12 @@
         function pop_Health_VulnerabilityIndex_3(feature, layer) {
             layer.on({
                 mouseout: function(e) {
-                    for (var i in e.target._eventParents) {
-                        if (typeof e.target._eventParents[i].resetStyle === 'function') {
-                            e.target._eventParents[i].resetStyle(e.target);
-                        }
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
                     }
                 },
                 mouseover: highlightFeature,
@@ -856,10 +862,12 @@
         function pop_SocialVulnerabilityIndex_4(feature, layer) {
             layer.on({
                 mouseout: function(e) {
-                    for (var i in e.target._eventParents) {
-                        if (typeof e.target._eventParents[i].resetStyle === 'function') {
-                            e.target._eventParents[i].resetStyle(e.target);
-                        }
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
                     }
                 },
                 mouseover: highlightFeature,
@@ -1090,10 +1098,12 @@
         function pop_ClimateExposureIndex_5(feature, layer) {
             layer.on({
                 mouseout: function(e) {
-                    for (var i in e.target._eventParents) {
-                        if (typeof e.target._eventParents[i].resetStyle === 'function') {
-                            e.target._eventParents[i].resetStyle(e.target);
-                        }
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
                     }
                 },
                 mouseover: highlightFeature,
@@ -1388,10 +1398,84 @@
             //openedSymbol: '&#8863; &#x1f5c1;',
             //collapseAll: 'Collapse all',
             //expandAll: 'Expand all',
-            collapsed: true,
+            collapsed: false
         });
         lay.addTo(map);
         setBounds();
         </script>
-    </body>
+<div id="custom-legend" style="
+    position: fixed;
+    bottom: 16px;
+    right: 16px;
+    z-index: 1000;
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid #999;
+    border-radius: 4px;
+    padding: 10px 12px;
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    max-height: 60vh;
+    overflow-y: auto;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+    max-width: 220px;
+">
+ 
+  <details open>
+    <summary style="font-weight:bold; cursor:pointer;">EJ &amp; Climate Risk Index</summary>
+    <div style="margin:4px 0 8px 4px;">
+      <div><span style="background:#FFFFB2;width:12px;height:12px;display:inline-block;margin-right:6px;"></span>18.61 – 36.35</div>
+      <div><span style="background:#FECC5C;width:12px;height:12px;display:inline-block;margin-right:6px;"></span>36.35 – 46.37</div>
+      <div><span style="background:#FD8D3C;width:12px;height:12px;display:inline-block;margin-right:6px;"></span>46.37 – 54.96</div>
+      <div><span style="background:#F03B20;width:12px;height:12px;display:inline-block;margin-right:6px;"></span>54.96 – 63.59</div>
+      <div><span style="background:#BD0026;width:12px;height:12px;display:inline-block;margin-right:6px;"></span>63.59 – 81.24</div>
+    </div>
+  </details>
+ 
+  <details>
+    <summary style="font-weight:bold; cursor:pointer;">Environmental Burden</summary>
+    <div style="margin:4px 0 8px 4px;">
+      <div><span style="background:#FFFFB2;width:12px;height:12px;display:inline-block;margin-right:6px;"></span>2.12 – 41.34</div>
+      <div><span style="background:#FECC5C;width:12px;height:12px;display:inline-block;margin-right:6px;"></span>41.34 – 47.32</div>
+      <div><span style="background:#FD8D3C;width:12px;height:12px;display:inline-block;margin-right:6px;"></span>47.32 – 52.60</div>
+      <div><span style="background:#F03B20;width:12px;height:12px;display:inline-block;margin-right:6px;"></span>52.60 – 60.45</div>
+      <div><span style="background:#BD0026;width:12px;height:12px;display:inline-block;margin-right:6px;"></span>60.45 – 75.91</div>
+    </div>
+  </details>
+ 
+  <details>
+    <summary style="font-weight:bold; cursor:pointer;">Health Vulnerability</summary>
+    <div style="margin:4px 0 8px 4px;">
+      <div><span style="background:#FFFFB2;width:12px;height:12px;display:inline-block;margin-right:6px;"></span>0.00 – 17.92</div>
+      <div><span style="background:#FECC5C;width:12px;height:12px;display:inline-block;margin-right:6px;"></span>17.92 – 39.29</div>
+      <div><span style="background:#FD8D3C;width:12px;height:12px;display:inline-block;margin-right:6px;"></span>39.29 – 55.91</div>
+      <div><span style="background:#F03B20;width:12px;height:12px;display:inline-block;margin-right:6px;"></span>55.91 – 75.47</div>
+      <div><span style="background:#BD0026;width:12px;height:12px;display:inline-block;margin-right:6px;"></span>75.47 – 98.32</div>
+    </div>
+  </details>
+ 
+  <details>
+    <summary style="font-weight:bold; cursor:pointer;">Social Vulnerability</summary>
+    <div style="margin:4px 0 8px 4px;">
+      <div><span style="background:#FFFFB2;width:12px;height:12px;display:inline-block;margin-right:6px;"></span>0.00 – 24.33</div>
+      <div><span style="background:#FECC5C;width:12px;height:12px;display:inline-block;margin-right:6px;"></span>24.33 – 43.12</div>
+      <div><span style="background:#FD8D3C;width:12px;height:12px;display:inline-block;margin-right:6px;"></span>43.12 – 58.43</div>
+      <div><span style="background:#F03B20;width:12px;height:12px;display:inline-block;margin-right:6px;"></span>58.43 – 70.36</div>
+      <div><span style="background:#BD0026;width:12px;height:12px;display:inline-block;margin-right:6px;"></span>70.36 – 97.87</div>
+    </div>
+  </details>
+ 
+  <details>
+    <summary style="font-weight:bold; cursor:pointer;">Climate Exposure</summary>
+    <div style="margin:4px 0 8px 4px;">
+      <div><span style="background:#FFFFB2;width:12px;height:12px;display:inline-block;margin-right:6px;"></span>0.25 – 20.20</div>
+      <div><span style="background:#FECC5C;width:12px;height:12px;display:inline-block;margin-right:6px;"></span>20.20 – 40.15</div>
+      <div><span style="background:#FD8D3C;width:12px;height:12px;display:inline-block;margin-right:6px;"></span>40.15 – 60.10</div>
+      <div><span style="background:#F03B20;width:12px;height:12px;display:inline-block;margin-right:6px;"></span>60.10 – 80.05</div>
+      <div><span style="background:#BD0026;width:12px;height:12px;display:inline-block;margin-right:6px;"></span>80.05 – 100.00</div>
+    </div>
+  </details>
+ 
+</div>
+     
+</body>
 </html>

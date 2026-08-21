@@ -1,6 +1,6 @@
 # Wissahickon Park Mobility & Visitor Access Analysis
 
-An interactive Web GIS application analyzing park access, trailhead activity, trail network coverage, and visitor mobility patterns across Philadelphia Parks & Recreation (PPR) properties in the Wissahickon Valley — built as a methodology proof-of-concept combining physical infrastructure data with anonymized Location-Based Services (LBS) movement data.
+An interactive Web GIS application analyzing park access, trailhead activity, trail network coverage, and visitor mobility patterns across Philadelphia Parks & Recreation (PPR) properties in the Wissahickon Valley — built as a methodology proof-of-concept combining physical infrastructure data with simulated Location-Based Services (LBS) movement data.
 
 **Tools:** QGIS · Python (Pandas) · qgis2web (Leaflet) · Esri World Topographic basemap
 
@@ -13,7 +13,7 @@ Shows corridor adherence — how closely LBS pings track to the mapped trail net
 
 **[🌐 Open Fullscreen →](https://evanklarsen.github.io/Projects/wissahickon_mobility/wissahickon_webmap_approach.html)**
 
-<iframe src="https://evanklarsen.github.io/Projects/wissahickon_mobility/wissahickon_webmap_approach.html" width="100%" height="600px" style="border:1px solid #ccc; border-radius: 8px;"></iframe>
+<iframe src="https://evanklarsen.github.io/Projects/wissahickon_mobility/wissahickon_webmap_approach.html" style="width: 100%; max-width: 100%; height: 600px; border: 1px solid #ccc; border-radius: 8px; box-sizing: border-box;"></iframe>
 
 ---
 
@@ -22,17 +22,19 @@ Shows trail traffic volume, visitor stay-points (dwell time), and device home-or
 
 **[🌐 Open Fullscreen →](https://evanklarsen.github.io/Projects/wissahickon_mobility/wissahickon_webmap_insights.html)**
 
-<iframe src="https://evanklarsen.github.io/Projects/wissahickon_mobility/wissahickon_webmap_insights.html" width="100%" height="600px" style="border:1px solid #ccc; border-radius: 8px;"></iframe>
+<iframe src="https://evanklarsen.github.io/Projects/wissahickon_mobility/wissahickon_webmap_insights.html" style="width: 100%; max-width: 100%; height: 600px; border: 1px solid #ccc; border-radius: 8px; box-sizing: border-box;"></iframe>
 
 ---
 
 ## Project Overview
 
-This project analyzes park usage patterns and physical accessibility for the Wissahickon Valley park system by synthesizing physical park infrastructure data (trails, boundaries, structures) with anonymized LBS movement pings and visitor home-origin data. It addresses three questions:
+This project analyzes park usage patterns and physical accessibility for the Wissahickon Valley park system by synthesizing physical park infrastructure data (trails, boundaries, structures) with simulated LBS movement pings and visitor home-origin data. It addresses three questions:
 
 1. How big and varied is the trail network?
 2. Which park entry points and facilities get the most activity?
 3. How far are visitors traveling to reach the park?
+
+**Note:** To demonstrate the spatial pipeline without proprietary commercial feeds, this proof-of-concept utilizes a simulated LBS ping dataset modeled on typical urban trail usage patterns.
 
 ---
 
@@ -43,7 +45,7 @@ This project analyzes park usage patterns and physical accessibility for the Wis
 The mapped system covers **48.38 miles** of trail across 390 connected segments (average segment length: 0.12 miles). Nearly half the network consists of minor connector paths rather than the named main trails.
 
 | Trail Name | Total Length (mi) | Share of System |
-|---|---|---|
+| :--- | :--- | :--- |
 | Minor Trails & Connectors | 21.38 | 44.2% |
 | Yellow Trail | 8.24 | 17.0% |
 | Orange Trail | 5.53 | 11.4% |
@@ -53,10 +55,10 @@ The mapped system covers **48.38 miles** of trail across 390 connected segments 
 
 ### Top Trailhead Activity Hotspots
 
-Based on LBS ping density, visitor congregation clusters around parking access, historic landmarks, and rest areas:
+Based on simulated LBS ping density, visitor congregation clusters around parking access, historic landmarks, and rest areas:
 
 | Facility | Total Pings | Unique Devices | What's There |
-|---|---|---|---|
+| :--- | :--- | :--- | :--- |
 | Thomas Mill Road Comfort Station | 125 | 6 | Restroom & covered bridge access |
 | Harpers Meadow Shelter | 38 | 2 | Open field & picnic area |
 | Guard Box (Blue Stone Bridge) | 35 | 2 | Major trail intersection & bridge |
@@ -72,11 +74,11 @@ Device home-origin analysis shows the Wissahickon functions primarily as a **sub
 - **Range:** 1.7 – 12.6 miles
 
 | Distance | Market Type | Device Share |
-|---|---|---|
-| 5–10 mi | Suburban | 74.0% |
-| 2–5 mi | Community | 12.0% |
-| 10–25 mi | Regional | 12.0% |
+| :--- | :--- | :--- |
 | < 2 mi | Immediate Local | 2.0% |
+| 2–5 mi | Community | 12.0% |
+| 5–10 mi | Suburban | 74.0% |
+| 10–25 mi | Regional | 12.0% |
 
 ---
 

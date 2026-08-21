@@ -11,16 +11,22 @@ An interactive Web GIS application analyzing park access, trailhead activity, tr
 ### 1. Analytical Approach
 Shows corridor adherence — how closely LBS pings track to the mapped trail network — and the multi-distance buffer methodology used to validate ping positioning against park boundaries and trails.
 
-**[🌐 Open Fullscreen →](https://evanklarsen.github.io/Projects/wissahickon_mobility/wissahickon_webmap_approach.html)**
+[![Analytical Approach map preview](./preview_approach.png)](https://evanklarsen.github.io/Projects/wissahickon_mobility/wissahickon_webmap_approach.html)
+
+**[Open the Analytical Approach map in fullscreen →](https://evanklarsen.github.io/Projects/wissahickon_mobility/wissahickon_webmap_approach.html)**
 
 <iframe src="https://evanklarsen.github.io/Projects/wissahickon_mobility/wissahickon_webmap_approach.html" style="width: 100%; max-width: 100%; height: 600px; border: 1px solid #ccc; border-radius: 8px; box-sizing: border-box;"></iframe>
+
+*(Note: the embedded map above renders on the live GitHub Pages site but not in GitHub's own repo file viewer, which strips iframe tags — the screenshot and fullscreen link above work in both places.)*
 
 ---
 
 ### 2. Derived Insights
 Shows trail traffic volume, visitor stay-points (dwell time), and device home-origin catchment layers derived from the approach methodology above.
 
-**[🌐 Open Fullscreen →](https://evanklarsen.github.io/Projects/wissahickon_mobility/wissahickon_webmap_insights.html)**
+[![Derived Insights map preview](./preview_insights.png)](https://evanklarsen.github.io/Projects/wissahickon_mobility/wissahickon_webmap_insights.html)
+
+**[Open the Derived Insights map in fullscreen →](https://evanklarsen.github.io/Projects/wissahickon_mobility/wissahickon_webmap_insights.html)**
 
 <iframe src="https://evanklarsen.github.io/Projects/wissahickon_mobility/wissahickon_webmap_insights.html" style="width: 100%; max-width: 100%; height: 600px; border: 1px solid #ccc; border-radius: 8px; box-sizing: border-box;"></iframe>
 
@@ -65,6 +71,8 @@ Based on simulated LBS ping density, visitor congregation clusters around parkin
 | Valley Green Inn | 24 | 1 | Central restaurant & parking hub |
 | Rex Avenue Shelter | 22 | 2 | Trailhead near popular climbing spots |
 
+*Simulated dataset scaled for methodology testing, not volume representativeness — ping and device counts are intentionally small and shouldn't be read as real visitor traffic figures.*
+
 ### Visitor Catchment & Travel Distance
 
 Device home-origin analysis shows the Wissahickon functions primarily as a **suburban and regional destination**, not a neighborhood walk-in park.
@@ -96,6 +104,17 @@ Device home-origin analysis shows the Wissahickon functions primarily as a **sub
 ## Relevance to Enterprise-Scale Work
 
 This Wissahickon analysis was built as a standalone proof of methodology — testing whether mobile LBS data, combined with open park infrastructure data, can reliably surface trail usage and catchment patterns without field-based visitor counts. The same pipeline (corridor-adherence buffering → hotspot aggregation → catchment analysis) is designed to scale to multi-site, multi-provider deployments, with geographic resolution and comparison baselines adapted per site.
+
+---
+
+## Limitations & Next Steps
+
+This proof-of-concept is intentionally scoped to test the pipeline, not to deliver production-grade visitor metrics. A full deployment would extend it with:
+
+- **Real vendor LBS data** — sourced from a licensed commercial provider under a paid data-use agreement, replacing the simulated dataset
+- **Multi-season / multi-year comparison** — capturing seasonal usage shifts rather than a single snapshot
+- **Ground-truthing against physical counters** — cross-validating LBS-derived hotspot estimates with trail counters or gate logs where available
+- **Expanded catchment resolution** — moving beyond Census Block Groups to adaptive geography (e.g., ZIP codes or counties) for larger or more rural park systems
 
 ---
 

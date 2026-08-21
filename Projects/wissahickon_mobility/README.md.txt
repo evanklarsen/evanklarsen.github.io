@@ -1,6 +1,6 @@
-# Wissahickon Mobility & Environmental Justice Web Map
+# Wissahickon Park Mobility & Visitor Access Analysis
 
-An interactive Web GIS application visualizing Environmental Justice (EJ) indices, climate vulnerability, and mobility access across Philadelphia census tracts. Designed to support park planning, environmental equity analysis, and public access evaluation.
+An interactive Web GIS application visualizing park access, trailhead activity levels, trail network coverage, and mobility patterns across Philadelphia Parks & Recreation (PPR) properties in the Wissahickon Valley.
 
 [🌐 Open Fullscreen Map](https://evanklarsen.github.io/Projects/wissahickon_mobility/wissahickon_webmap_approach.html)
 
@@ -14,33 +14,21 @@ An interactive Web GIS application visualizing Environmental Justice (EJ) indice
 
 ## Project Overview
 
-This project synthesizes spatial demographic indicators with environmental stress metrics across Philadelphia census tracts. By anchoring the data on a topographic base, the map allows planners, park personnel, and community members to evaluate climate risk, health vulnerability, and social equity relative to public green spaces and terrain.
+This project analyzes park usage patterns and accessibility for the Wissahickon Valley park system by combining physical park infrastructure data with anonymized Location-Based Services (LBS) movement pings.
 
-### Key Data Domains Evaluated
-* **EJ & Climate Risk Index:** Integrated overall risk score.
-* **Environmental Burden Index:** Pollution, industrial proximity, and environmental hazard exposure.
-* **Health Vulnerability Index:** Pre-existing health conditions and healthcare accessibility metrics.
-* **Social Vulnerability Index:** Socioeconomic status, household composition, and demographic factors.
-* **Climate Exposure Index:** Extreme heat, flood risk, and environmental hazards.
+### Core Analytical Components
+* **Trail Network Infrastructure:** Surface classifications, pedestrian/bike restrictions, and segment lengths across primary trails (Forbidden Drive, Orange, Yellow, White trails).
+* **Trailhead Activity Hotspots:** Density of synthetic LBS pings and unique device counts at key access points and park facility structures.
+* **Visitor Catchment & Origins:** Distance traveled (`dist_miles`) from device home block groups to evaluate neighborhood park catchment zones and regional draw.
+* **Hydrographic & Environmental Context:** Watershed boundaries, creek alignments, and terrain contours supporting park planning and trail maintenance.
 
 ---
 
 ## Tools & Technologies
 
-* **Desktop GIS:** QGIS (Data processing, symbology, and thematic classification)
+* **Desktop GIS:** QGIS (Data processing, network attribute joining, spatial filtering)
+* **Spatial Analysis:** PyQGIS & Pandas (Trailhead ping aggregation, travel distance calculations)
 * **Export Framework:** `qgis2web` plugin (Leaflet export)
-* **Mapping Library:** Leaflet.js
 * **Basemap Service:** Esri World Topographic Map (`ArcGIS/rest/services/World_Topo_Map`)
 * **Customization:** HTML5, CSS3, JavaScript (vanilla)
 * **Hosting:** GitHub Pages
-
----
-
-## Custom Technical Enhancements
-
-To transform the standard QGIS web export into a functional, user-friendly tool, several front-end customizations were made:
-
-1. **Topographic Basemap Integration:** Replaced default OSM tiles with Esri's World Topo Map to display terrain contours, park boundaries, and natural features crucial for park mobility planning.
-2. **Layer Opacity Tuning:** Adjusted thematic layer fill opacity (`fillOpacity: 0.5`) to allow underlying streets, park labels, and topographic terrain to remain visible through colored polygons.
-3. **Pinned Attribute Popups:** Modified event listeners to disable `mouseout` popup closures. Users can click any tract to lock open a scrollable, full-metric pop-up window without losing context when moving the cursor.
-4. **Mobile-Responsive Layer Tree:** Configured layer control grouping (`L.control.layers.tree`) with dynamic collapsing (`collapsed: true`) to prevent interface clutter on mobile devices.

@@ -15,19 +15,23 @@
     --ink-dim: #9fb0a3;
     --line: rgba(233, 237, 232, 0.12);
 
-    /* Land cover classification palette — pulled straight from the
-       Philadelphia land cover legend (classes 1–7) and reused here
-       as the site's functional color-coding system. */
-    --canopy: #6fa06a;    /* class 1 — tree canopy   → About    */
-    --grass: #a9b96e;     /* class 2 — grass/shrub   → texture  */
-    --soil: #b08a63;      /* class 3 — bare soil     → accents  */
-    --water: #5089ab;     /* class 4 — water         → Projects */
-    --building: #8891a0;  /* class 5 — building      → Skills   */
-    --road: #d98c4a;      /* class 6/7 — road/paved  → Contact  */
-
+  
+    /* Official USGS NLCD & DVRPC Palette Standards */
+  --canopy: #38814e;    /* NLCD Class 41/42 — Deciduous/Evergreen Forest */
+  --grass: #d2b48c;     /* NLCD Class 52/71 — Shrub/Herbaceous */
+  --soil: #b2b2b2;      /* NLCD Class 31 — Barren Land */
+  --water: #476ba0;     /* NLCD Class 11 — Open Water */
+  --building: #ab0000;  /* NLCD Class 23/24 — High Intensity Developed */
+  --road: #df7000;      /* NLCD Class 21/22 — Low/Medium Intensity Developed */
     --radius: 3px;
   }
-
+  [data-theme="light"] {
+  --canvas: #f4f3ef;         /* Topo map paper base */
+  --canvas-raised: #eae8e1;  /* Raised panel tone */
+  --ink: #1b241f;            /* Dark ink text */
+  --ink-dim: #4a584e;        /* Muted map text */
+  --line: rgba(27, 36, 31, 0.15);
+}
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
   html { scroll-behavior: smooth; }
@@ -54,7 +58,17 @@
     opacity: 0.05;
     pointer-events: none;
   }
-
+  .graticule {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  opacity: 0.08;
+  pointer-events: none;
+  background-image: 
+    linear-gradient(to right, var(--line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--line) 1px, transparent 1px);
+  background-size: 60px 60px; /* Simulates uniform map grid intervals */
+}
   a { color: inherit; }
   a:focus-visible, button:focus-visible {
     outline: 2px solid var(--water);
@@ -266,6 +280,7 @@
   .skill-tag .dot {
     width: 6px; height: 6px; border-radius: 50%;
   }
+  
 
   /* ---------- Footer / contact ---------- */
   footer {
@@ -295,7 +310,7 @@
 </style>
 </head>
 <body>
-
+<div class="graticule"></div>
 <svg class="contours" viewBox="0 0 1000 1400" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
   <path d="M-50,120 C150,60 300,180 500,110 C700,40 850,140 1050,90" stroke="#a9b96e" stroke-width="1.2" fill="none"/>
   <path d="M-50,200 C150,140 300,260 500,190 C700,120 850,220 1050,170" stroke="#a9b96e" stroke-width="1.2" fill="none"/>
@@ -312,6 +327,9 @@
   <a class="legend-item" href="#projects"><span class="swatch" style="background:var(--water)"></span>Projects</a>
   <a class="legend-item" href="#skills"><span class="swatch" style="background:var(--building)"></span>Skills</a>
   <a class="legend-item" href="#contact"><span class="swatch" style="background:var(--road)"></span>Contact</a>
+  <button id="theme-toggle" class="legend-item" style="background:none; border:none; width:100%; text-align:left; padding-top:8px; border-top:1px solid var(--line); margin-top:6px;">
+  <span class="swatch" style="background:var(--ink)"></span>Basemap: Dark
+</button>
 </nav>
 
 <div class="wrap">
@@ -392,8 +410,8 @@
         <span class="tag">qgis2web</span>
       </div>
       <div class="project-tags" style="margin-top: 12px;">
-        <a class="tag" href="/Projects/wissahickon_mobility/" style="text-decoration:none;">View Project →</a>
-        <a class="tag" href="/Projects/wissahickon_mobility/wissahickon_webmap_insights.html" style="text-decoration:none;">Interactive Map →</a>
+<a class="tag" href="/Projects/wissahickon_mobility/" target="_blank" rel="noopener" style="text-decoration:none;">View Project →</a>
+<a class="tag" href="/Projects/wissahickon_mobility/wissahickon_webmap_insights.html" target="_blank" rel="noopener" style="text-decoration:none;">Interactive Map →</a>
       </div>
     </div>
 
@@ -442,8 +460,8 @@
 
 </div>
 <script>
+  // Live cursor coordinate listener
   document.addEventListener('mousemove', (e) => {
-    // Dynamically calculate slight offsets based on mouse position
     const lat = (39.9526 + (0.5 - e.clientY / window.innerHeight) * 0.02).toFixed(4);
     const lng = (-75.1652 + (e.clientX / window.innerWidth - 0.5) * 0.02).toFixed(4);
     const coordEl = document.querySelector('.coord-tag');
@@ -451,6 +469,21 @@
       coordEl.textContent = `${lat}° N, ${Math.abs(lng)}° W : PHILADELPHIA, PA [LIVE]`;
     }
   });
+
+  // Basemap theme toggle (Dark vs. Light Topo)
+  const toggleBtn = document.getElementById('theme-toggle');
+  if (toggleBtn) {
+    toggleBtn.addEventListener('click', () => {
+      const currentTheme = document.documentElement.getAttribute('data-theme');
+      if (currentTheme === 'light') {
+        document.documentElement.removeAttribute('data-theme');
+        toggleBtn.innerHTML = '<span class="swatch" style="background:var(--ink)"></span>Basemap: Dark';
+      } else {
+        document.documentElement.setAttribute('data-theme', 'light');
+        toggleBtn.innerHTML = '<span class="swatch" style="background:var(--ink)"></span>Basemap: Light';
+      }
+    });
+  }
 </script>
 </body>
 </html>

@@ -7,215 +7,14 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --canvas: #1b241f;
-    --canvas-raised: #212c26;
-    --ink: #e9ede8;
-    --ink-dim: #9fb0a3;
-    --line: rgba(233, 237, 232, 0.12);
-    --canopy: #6fa06a;
-    --grass: #a9b96e;
-    --soil: #b08a63;
-    --water: #5089ab;
-    --building: #8891a0;
-    --road: #d98c4a;
-    --radius: 3px;
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
-  @media (prefers-reduced-motion: reduce) {
-    html { scroll-behavior: auto; }
-    * { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
-  }
-  body {
-    background: var(--canvas);
-    color: var(--ink);
-    font-family: 'Inter', sans-serif;
-    line-height: 1.65;
-  }
-  a { color: var(--water); }
-  .wrap { max-width: 840px; margin: 0 auto; padding: 0 28px; }
-
-  header.hero { padding: 90px 0 60px; border-bottom: 1px solid var(--line); }
-  .back-link {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 12px;
-    color: var(--ink-dim);
-    text-decoration: none;
-    display: inline-block;
-    margin-bottom: 28px;
-  }
-  .back-link:hover { color: var(--ink); }
-  h1 {
-    font-family: 'Space Grotesk', sans-serif;
-    font-weight: 700;
-    font-size: clamp(2rem, 5vw, 3rem);
-    line-height: 1.05;
-    letter-spacing: -0.01em;
-  }
-  .subtitle {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 1.1rem;
-    color: var(--canopy);
-    margin-top: 10px;
-    font-weight: 500;
-  }
-  .tools-used {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-    margin-top: 22px;
-  }
-  .tools-used span {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 11px;
-    border: 1px solid var(--line);
-    border-radius: 20px;
-    padding: 4px 12px;
-    color: var(--ink-dim);
-  }
-
-  section { padding: 56px 0; border-bottom: 1px solid var(--line); }
-  section:last-of-type { border-bottom: none; }
-  .section-label {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 22px;
-  }
-  .section-label .swatch { width: 8px; height: 8px; border-radius: 50%; }
-
-  p { color: var(--ink-dim); max-width: 68ch; }
-  p + p { margin-top: 14px; }
-  h2.section-title {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 1.6rem;
-    font-weight: 600;
-    color: var(--ink);
-    margin-bottom: 6px;
-  }
-  h3.sub-title {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 1.15rem;
-    font-weight: 600;
-    color: var(--ink);
-    margin-top: 32px;
-    margin-bottom: 6px;
-  }
-  h3.sub-title:first-of-type { margin-top: 0; }
-
-  .map-embed-wrap {
-    margin-top: 24px;
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    overflow: hidden;
-  }
-  .map-embed-wrap iframe {
-    width: 100%;
-    height: 600px;
-    border: none;
-    display: block;
-  }
-  .map-caption {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 11px;
-    color: var(--ink-dim);
-    margin-top: 10px;
-  }
-  .map-caption a { color: var(--water); }
-
-  .index-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 18px;
-    margin-top: 24px;
-  }
-  @media (max-width: 600px) { .index-grid { grid-template-columns: 1fr; } }
-  .index-card {
-    background: var(--canvas-raised);
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    padding: 20px 22px;
-  }
-  .index-card-title {
-    font-family: 'Space Grotesk', sans-serif;
-    font-weight: 600;
-    font-size: 1.05rem;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 8px;
-  }
-  .index-card-title .swatch { width: 10px; height: 10px; border-radius: 50%; }
-  .index-card p { font-size: 0.92rem; }
-
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-    font-size: 0.9rem;
-  }
-  th, td {
-    text-align: left;
-    padding: 8px 10px;
-    border-bottom: 1px solid var(--line);
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 12.5px;
-  }
-  th { color: var(--ink-dim); font-weight: 500; text-transform: uppercase; font-size: 10.5px; letter-spacing: 0.06em; }
-  td { color: var(--ink); }
-
-  .footnote {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 12px;
-    color: var(--ink-dim);
-    border-left: 2px solid var(--road);
-    padding: 4px 0 4px 14px;
-    margin-top: 20px;
-  }
-
-  .methodology-list {
-    margin-top: 16px;
-    padding-left: 0;
-    list-style: none;
-  }
-  .methodology-list li {
-    color: var(--ink-dim);
-    padding: 10px 0;
-    border-top: 1px solid var(--line);
-    font-size: 0.95rem;
-  }
-  .methodology-list li:first-child { border-top: none; }
-  .methodology-list strong { color: var(--ink); font-weight: 500; }
-
-  footer {
-    padding: 56px 0 80px;
-  }
-  .footer-links {
-    display: flex;
-    gap: 22px;
-    flex-wrap: wrap;
-    margin-top: 16px;
-  }
-  .footer-links a {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 13px;
-    text-decoration: none;
-    color: var(--ink-dim);
-  }
-  .footer-links a:hover { color: var(--ink); }
-</style>
+<link rel="stylesheet" href="/style.css">
 </head>
 <body>
+  <div class="graticule"></div>
 <div class="wrap">
 
   <header class="hero">
-    <a class="back-link" href="../../index.html">&larr; Back to portfolio</a>
+<a class="back-link" href="/">&larr; Back to portfolio</a>
     <h1>Wissahickon Park Mobility &amp; Visitor Access Analysis</h1>
     <div class="subtitle">A methodology proof-of-concept for park usage &amp; catchment analysis</div>
     <div class="tools-used">
@@ -349,7 +148,7 @@
 
   <footer>
     <div class="footer-links">
-      <a href="../../index.html">&larr; Back to portfolio</a>
+<a class="back-link" href="/">&larr; Back to portfolio</a>
       <a href="https://evanklarsen.github.io/Projects/wissahickon_mobility/wissahickon_webmap_insights.html" target="_blank" rel="noopener">Insights map ↗</a>
       <a href="https://evanklarsen.github.io/Projects/wissahickon_mobility/wissahickon_webmap_approach.html" target="_blank" rel="noopener">Approach map ↗</a>
       <a href="https://github.com/evanklarsen" target="_blank" rel="noopener">GitHub ↗</a>
@@ -357,5 +156,6 @@
   </footer>
 
 </div>
+  <script src="/main.js" defer></script>
 </body>
 </html>

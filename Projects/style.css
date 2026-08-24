@@ -1,4 +1,3 @@
-<style>
   :root {
     --canvas: #1b241f;
     --canvas-raised: #212c26;
@@ -298,4 +297,3 @@
     color: var(--ink-dim);
     opacity: 0.6;
   }
-</style>

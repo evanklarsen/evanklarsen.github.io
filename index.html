@@ -43,6 +43,7 @@
     line-height: 1.6;
     position: relative;
     overflow-x: hidden;
+    cursor: crosshair;
   }
 
   /* Faint contour-line texture across the whole canvas */
@@ -440,6 +441,16 @@
   </footer>
 
 </div>
-
+<script>
+  document.addEventListener('mousemove', (e) => {
+    // Dynamically calculate slight offsets based on mouse position
+    const lat = (39.9526 + (0.5 - e.clientY / window.innerHeight) * 0.02).toFixed(4);
+    const lng = (-75.1652 + (e.clientX / window.innerWidth - 0.5) * 0.02).toFixed(4);
+    const coordEl = document.querySelector('.coord-tag');
+    if (coordEl) {
+      coordEl.textContent = `${lat}° N, ${Math.abs(lng)}° W : PHILADELPHIA, PA [LIVE]`;
+    }
+  });
+</script>
 </body>
 </html>

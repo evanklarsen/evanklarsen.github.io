@@ -12,15 +12,17 @@ document.addEventListener('mousemove', (e) => {
 const toggleBtn = document.getElementById('theme-toggle');
 if (toggleBtn) {
   toggleBtn.addEventListener('click', () => {
-    const currentTheme = document.documentElement.getAttribute('data-theme');
-    if (currentTheme === 'light') {
-      document.documentElement.removeAttribute('data-theme');
-      toggleBtn.innerHTML = '<span class="swatch" style="background:var(--ink)"></span>Basemap: Dark';
-    } else {
-      document.documentElement.setAttribute('data-theme', 'light');
-      toggleBtn.innerHTML = '<span class="swatch" style="background:var(--ink)"></span>Basemap: Light';
-    }
-  });
+  const currentTheme = document.documentElement.getAttribute('data-theme');
+  if (currentTheme === 'light') {
+    document.documentElement.removeAttribute('data-theme');
+    toggleBtn.innerHTML = '<span class="swatch" style="background:var(--ink)"></span>Basemap: Dark';
+    toggleBtn.setAttribute('aria-pressed', 'false');
+  } else {
+    document.documentElement.setAttribute('data-theme', 'light');
+    toggleBtn.innerHTML = '<span class="swatch" style="background:var(--ink)"></span>Basemap: Light';
+    toggleBtn.setAttribute('aria-pressed', 'true');
+  }
+});
 }
 // Last updated, pulled from the latest commit on GitHub
 fetch('https://api.github.com/repos/evanklarsen/evanklarsen.github.io/commits/main')

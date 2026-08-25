@@ -17,12 +17,15 @@ if (toggleBtn) {
     document.documentElement.removeAttribute('data-theme');
     toggleBtn.innerHTML = '<span class="swatch" style="background:var(--ink)"></span>Basemap: Dark';
     toggleBtn.setAttribute('aria-pressed', 'false');
+    localStorage.setItem('theme', 'dark');
   } else {
     document.documentElement.setAttribute('data-theme', 'light');
     toggleBtn.innerHTML = '<span class="swatch" style="background:var(--ink)"></span>Basemap: Light';
     toggleBtn.setAttribute('aria-pressed', 'true');
+    localStorage.setItem('theme', 'light');
   }
 });
+}
 }
 // Last updated, pulled from the latest commit on GitHub
 fetch('https://api.github.com/repos/evanklarsen/evanklarsen.github.io/commits/main')

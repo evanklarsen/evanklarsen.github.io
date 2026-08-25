@@ -22,3 +22,15 @@ if (toggleBtn) {
     }
   });
 }
+// Last updated, pulled from the latest commit on GitHub
+fetch('https://api.github.com/repos/evanklarsen/evanklarsen.github.io/commits/main')
+  .then(res => res.json())
+  .then(data => {
+    const date = new Date(data.commit.committer.date);
+    const formatted = date.toLocaleDateString('en-US', { year: 'numeric', month: 'long' });
+    const el = document.getElementById('last-updated');
+    if (el) {
+      el.textContent = `evanklarsen.github.io — last surveyed ${formatted}`;
+    }
+  })
+  .catch(() => {}); // fails quietly, hardcoded text stays as fallback

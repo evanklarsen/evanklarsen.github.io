@@ -24,6 +24,11 @@ if (toggleBtn) {
     toggleBtn.setAttribute('aria-pressed', 'true');
     localStorage.setItem('theme', 'light');
   }
+    // Sync toggle button state with saved theme on load
+if (toggleBtn && localStorage.getItem('theme') === 'light') {
+  toggleBtn.innerHTML = '<span class="swatch" style="background:var(--ink)"></span>Basemap: Light';
+  toggleBtn.setAttribute('aria-pressed', 'true');
+}
 });
 }
 }
@@ -39,3 +44,5 @@ fetch('https://api.github.com/repos/evanklarsen/evanklarsen.github.io/commits/ma
     }
   })
   .catch(() => {}); // fails quietly, hardcoded text stays as fallback
+
+

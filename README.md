@@ -14,8 +14,8 @@ Personal GIS portfolio site for Evan Larsen — built as a static site and hoste
 └── Projects/
 ├── ej-index-story/ # Philadelphia EJ & Climate Risk Index write-up
 ├── ej-index-map/ # Interactive map (qgis2web export)
-└── wissahickon_mobility/ # Wissahickon Park mobility analysis
-
+├── wissahickon_mobility/ # Wissahickon Park mobility analysis
+└── urban-heat-tree-canopy/ # Urban heat island & tree canopy equity analysis
 
 ## Stack
 Plain HTML/CSS/JS, no build step or framework. Interactive maps built with [Leaflet](https://leafletjs.com/) via [qgis2web](https://github.com/tomchadwin/qgis2web) exports from QGIS.

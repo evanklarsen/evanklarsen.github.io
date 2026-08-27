@@ -10,27 +10,44 @@ document.addEventListener('mousemove', (e) => {
 
 // Basemap theme toggle (Dark vs. Light Topo)
 const toggleBtn = document.getElementById('theme-toggle');
+
+function applyTheme(theme) {
+  if (theme === 'light') {
+    document.documentElement.setAttribute('data-theme', 'light');
+    if (toggleBtn) {
+      toggleBtn.innerHTML = '<span class="swatch" style="background:var(--ink)"></span>Basemap: Light';
+      toggleBtn.setAttribute('aria-pressed', 'true');
+    }
+  } else {
+    document.documentElement.removeAttribute('data-theme');
+    if (toggleBtn) {
+      toggleBtn.innerHTML = '<span class="swatch" style="background:var(--ink)"></span>Basemap: Dark';
+      toggleBtn.setAttribute('aria-pressed', 'false');
+    }
+  }
+}
+
+applyTheme(localStorage.getItem('theme') === 'light' ? 'light' : 'dark');
+
 if (toggleBtn) {
   toggleBtn.addEventListener('click', () => {
-  const currentTheme = document.documentElement.getAttribute('data-theme');
-  if (currentTheme === 'light') {
-    document.documentElement.removeAttribute('data-theme');
-    toggleBtn.innerHTML = '<span class="swatch" style="background:var(--ink)"></span>Basemap: Dark';
-    toggleBtn.setAttribute('aria-pressed', 'false');
-    localStorage.setItem('theme', 'dark');
-  } else {
-    document.documentElement.setAttribute('data-theme', 'light');
-    toggleBtn.innerHTML = '<span class="swatch" style="background:var(--ink)"></span>Basemap: Light';
-    toggleBtn.setAttribute('aria-pressed', 'true');
-    localStorage.setItem('theme', 'light');
-  }
-    // Sync toggle button state with saved theme on load
-if (toggleBtn && localStorage.getItem('theme') === 'light') {
-  toggleBtn.innerHTML = '<span class="swatch" style="background:var(--ink)"></span>Basemap: Light';
-  toggleBtn.setAttribute('aria-pressed', 'true');
+    const currentTheme = document.documentElement.getAttribute('data-theme');
+    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+    localStorage.setItem('theme', newTheme);
+    applyTheme(newTheme);
+  });
 }
-});
-}
+
+// Apply saved theme as soon as the script runs (page load / refresh)
+applyTheme(localStorage.getItem('theme') === 'light' ? 'light' : 'dark');
+
+if (toggleBtn) {
+  toggleBtn.addEventListener('click', () => {
+    const currentTheme = document.documentElement.getAttribute('data-theme');
+    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+    localStorage.setItem('theme', newTheme);
+    applyTheme(newTheme);
+  });
 }
 // Last updated, pulled from the latest commit on GitHub
 fetch('https://api.github.com/repos/evanklarsen/evanklarsen.github.io/commits/main')
@@ -44,5 +61,3 @@ fetch('https://api.github.com/repos/evanklarsen/evanklarsen.github.io/commits/ma
     }
   })
   .catch(() => {}); // fails quietly, hardcoded text stays as fallback
-
-

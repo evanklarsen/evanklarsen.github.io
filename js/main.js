@@ -27,16 +27,6 @@ function applyTheme(theme) {
   }
 }
 
-applyTheme(localStorage.getItem('theme') === 'light' ? 'light' : 'dark');
-
-if (toggleBtn) {
-  toggleBtn.addEventListener('click', () => {
-    const currentTheme = document.documentElement.getAttribute('data-theme');
-    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-    localStorage.setItem('theme', newTheme);
-    applyTheme(newTheme);
-  });
-}
 
 // Apply saved theme as soon as the script runs (page load / refresh)
 applyTheme(localStorage.getItem('theme') === 'light' ? 'light' : 'dark');

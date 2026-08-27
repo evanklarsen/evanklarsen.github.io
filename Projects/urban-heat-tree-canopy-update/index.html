@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="theme-color" content="#1b241f">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta property="og:image" content="https://evanklarsen.github.io/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<title>Philadelphia Urban Heat Island &amp; Tree Canopy Equity — Evan L.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../css/style.css">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="description" content="A bivariate spatial analysis of land surface temperature and tree canopy coverage across Philadelphia census tracts, with Getis-Ord Gi* hot spot analysis identifying priority heat-vulnerability clusters.">
+<meta property="og:title" content="Philadelphia Urban Heat Island & Tree Canopy Equity">
+<meta property="og:description" content="A bivariate spatial analysis of land surface temperature and tree canopy coverage across Philadelphia census tracts, with Getis-Ord Gi* hot spot analysis identifying priority heat-vulnerability clusters.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://evanklarsen.github.io/Projects/urban-heat-tree-canopy/">
+<link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+<script>
+  if (localStorage.getItem('theme') === 'light') {
+    document.documentElement.setAttribute('data-theme', 'light');
+  }
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  "name": "Philadelphia Urban Heat Island & Tree Canopy Equity",
+  "description": "A bivariate spatial analysis of land surface temperature and tree canopy coverage across Philadelphia census tracts, with Getis-Ord Gi* hot spot analysis identifying priority heat-vulnerability clusters.",
+  "url": "https://evanklarsen.github.io/Projects/urban-heat-tree-canopy/",
+  "author": { "@type": "Person", "name": "Evan Larsen", "url": "https://evanklarsen.github.io/" },
+  "keywords": ["GIS", "QGIS", "Urban Heat Island", "Tree Canopy", "Spatial Statistics", "Getis-Ord Gi*"]
+}
+</script>
+<script data-goatcounter="https://evanklarsen.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</head>
+<body>
+  <div class="graticule"></div>
+<div class="wrap">
+
+  <header class="hero">
+    <a class="back-link" href="/">&larr; Back to portfolio</a>
+    <h1>Philadelphia Urban Heat Island &amp; Tree Canopy Equity</h1>
+    <div class="subtitle">A census-tract-level bivariate analysis of land surface temperature and canopy coverage</div>
+    <div class="tools-used">
+      <span>QGIS</span>
+      <span>Land Surface Temperature</span>
+      <span>Bivariate Choropleth</span>
+      <span>Getis-Ord Gi* Hot Spot Analysis</span>
+    </div>
+  </header>
+
+  <section id="intro">
+    <p>
+      Urban heat isn't distributed evenly across a city &mdash; it tracks closely with land
+      cover, and tree canopy in particular. Tracts with little canopy and heavy impervious
+      surface absorb and re-radiate far more heat than tracts with mature tree cover, and in
+      Philadelphia those two conditions map onto neighborhoods that were already carrying
+      other environmental and economic burdens.
+    </p>
+    <p>
+      This project evaluates microclimate vulnerability, tree canopy deficit, and thermal
+      risk priority clusters across Philadelphia's census tracts in three stages: a citywide
+      land surface temperature overview, a bivariate classification of heat against canopy,
+      and a Getis-Ord Gi* hot spot analysis that isolates statistically significant clustering
+      from baseline citywide noise.
+    </p>
+  </section>
+
+  <section id="figures">
+    <div class="section-label"><span class="swatch" style="background:var(--road)"></span>Figure 1</div>
+    <h2 class="section-title">Citywide temperature distribution</h2>
+    <p>
+      Mean land surface temperature (LST) ranges from roughly 80&deg;F to 115&deg;F across
+      Philadelphia's census tracts. The hottest tracts &mdash; 105&deg;F to 115&deg;F &mdash;
+      are densely concentrated across North Philadelphia, the Lower Northeast, and central
+      industrial corridors. Temperatures below 90&deg;F are strictly confined to major
+      contiguous green infrastructure, most notably Wissahickon Valley Park, Pennypack Park,
+      and the Fairmount Park system.
+    </p>
+    <div class="figure-wrap">
+      <a href="figures/figure-1-citywide-heat-overview.pdf" target="_blank" rel="noopener noreferrer">
+        <img src="images/figure-1-citywide-heat-overview.jpg" alt="Map of citywide land surface temperature across Philadelphia census tracts" loading="lazy">
+      </a>
+    </div>
+    <div class="map-caption">
+      <a href="figures/figure-1-citywide-heat-overview.pdf" target="_blank" rel="noopener noreferrer">Open full-resolution PDF &rarr;</a>
+    </div>
+
+    <div class="section-label" style="margin-top:8px;"><span class="swatch" style="background:var(--building)"></span>Figure 2</div>
+    <h2 class="section-title">Bivariate vulnerability matrix</h2>
+    <p>
+      A 3&times;3 bivariate classification evaluates the direct relationship between LST and
+      tree canopy percentage across all census tracts. 24.0% of tracts fall into the highest
+      vulnerability classification &mdash; high heat, low canopy &mdash; forming a broad,
+      contiguous band across North and South Philadelphia. At the other end, 26.6% of tracts
+      represent urban cool refuges (low heat, high canopy), heavily concentrated in Northwest
+      Philadelphia and the Far Northeast. The remaining tracts fall along the spectrum between
+      those extremes, including moderate heat with low canopy (19.3%) and moderate heat with
+      moderate canopy (9.4%).
+    </p>
+    <div class="figure-wrap">
+      <a href="figures/figure-2-bivariate-analysis.pdf" target="_blank" rel="noopener noreferrer">
+        <img src="images/figure-2-bivariate-analysis.jpg" alt="Bivariate choropleth map of land surface temperature versus tree canopy percentage" loading="lazy">
+      </a>
+    </div>
+    <div class="map-caption">
+      <a href="figures/figure-2-bivariate-analysis.pdf" target="_blank" rel="noopener noreferrer">Open full-resolution PDF &rarr;</a>
+    </div>
+
+    <div class="section-label" style="margin-top:8px;"><span class="swatch" style="background:var(--water)"></span>Figure 3</div>
+    <h2 class="section-title">Spatial autocorrelation &amp; priority clusters</h2>
+    <p>
+      Using Getis-Ord Gi* spatial statistics with a 1.2 km fixed distance band, the analysis
+      isolates statistically significant neighborhood-scale clustering from baseline urban
+      noise. Significant hot spot clusters (90%&ndash;95% confidence) emerge directly within
+      North Philadelphia, centered near Hunting Park and Kensington, along with isolated South
+      Philadelphia industrial and commercial tracts &mdash; high-priority targets where low
+      canopy directly couples with regional heat aggregation. Significant cold spot clusters
+      (90%&ndash;99% confidence) map closely to regional parklands, including the Wissahickon
+      Creek corridor, Pennypack Park, and the John Heinz National Wildlife Refuge area in the
+      Southwest. The vast majority of tracts show no statistically significant spatial
+      autocorrelation, confirming that severe thermal vulnerability is concentrated in
+      specific, actionable corridors rather than spread uniformly citywide.
+    </p>
+    <div class="figure-wrap">
+      <a href="figures/figure-3-hot-spot-analysis.pdf" target="_blank" rel="noopener noreferrer">
+        <img src="images/figure-3-hot-spot-analysis.jpg" alt="Getis-Ord Gi* hot spot analysis map of statistically significant heat clusters" loading="lazy">
+      </a>
+    </div>
+    <div class="map-caption">
+      <a href="figures/figure-3-hot-spot-analysis.pdf" target="_blank" rel="noopener noreferrer">Open full-resolution PDF &rarr;</a>
+    </div>
+  </section>
+
+  <section id="findings">
+    <div class="section-label"><span class="swatch" style="background:var(--canopy)"></span>Key Findings</div>
+    <h2 class="section-title">Heat and canopy deficit are spatially coupled</h2>
+    <p>
+      Nearly a quarter of Philadelphia's census tracts sit in the critical-risk zone where
+      high heat and low canopy overlap, and that overlap isn't scattered &mdash; it forms a
+      contiguous band across North and South Philadelphia that also emerges as statistically
+      significant hot spot clustering under Getis-Ord Gi*. The cool-refuge tracts follow the
+      opposite pattern, concentrated wherever the city's major parks and Northwest tree cover
+      sit. The consistency across all three analyses &mdash; raw temperature, bivariate
+      classification, and spatial statistics &mdash; points to the same corridors as
+      priorities for canopy investment.
+    </p>
+  </section>
+
+  <section id="methodology">
+    <div class="section-label"><span class="swatch" style="background:var(--road)"></span>Methodology</div>
+    <h2 class="section-title">How the analysis was built</h2>
+    <ul class="methodology-list">
+      <li><strong>Geography:</strong> Philadelphia County, at the census tract level.</li>
+      <li><strong>Land surface temperature:</strong> tract-level LST summarized as a citywide choropleth to identify thermal cores and cooling corridors.</li>
+      <li><strong>Bivariate classification:</strong> a 3&times;3 matrix crossing LST against tree canopy percentage, isolating critical-risk and cool-refuge tracts.</li>
+      <li><strong>Hot spot analysis:</strong> Getis-Ord Gi* with a 1.2 km fixed distance band, used to separate statistically significant clustering from baseline citywide variation.</li>
+      <li><strong>Desktop GIS:</strong> QGIS &mdash; layout composition, choropleth symbology, and spatial statistics tooling.</li>
+      <li><strong>Figures &amp; data:</strong> full-resolution PDF exports linked above; source project and code on <a href="https://github.com/evanklarsen" target="_blank" rel="noopener noreferrer">GitHub</a>.</li>
+    </ul>
+  </section>
+
+  <footer>
+    <div class="footer-links">
+<a href="/">&larr; Back to portfolio</a>
+      <a href="figures/figure-1-citywide-heat-overview.pdf" target="_blank" rel="noopener noreferrer">Figure 1 PDF ↗</a>
+      <a href="figures/figure-2-bivariate-analysis.pdf" target="_blank" rel="noopener noreferrer">Figure 2 PDF ↗</a>
+      <a href="figures/figure-3-hot-spot-analysis.pdf" target="_blank" rel="noopener noreferrer">Figure 3 PDF ↗</a>
+      <a href="https://github.com/evanklarsen" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+    </div>
+  </footer>
+
+</div>
+  <script src="/js/main.js" defer></script>
+</body>
+</html>
